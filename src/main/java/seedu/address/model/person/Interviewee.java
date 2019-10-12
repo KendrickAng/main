@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import static seedu.address.model.person.EmailType.NUS;
+import static seedu.address.model.person.EmailType.PERSONAL;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -13,19 +16,24 @@ public class Interviewee extends Person {
 
     private final Faculty faculty;
     private final Integer yearOfStudy;
-    private final List<Department> departments; // choice of departments
-    private final List<Slot> timeslots; // allocated interview time slots
+    private final List<Department> departmentChoices; // choice of departments
+    private final List<Slot> availableTimeslots; // allocated interview time slots
+    private final Emails emails = new Emails(); // personal, NUS emails etc
 
     /**
      * Every field must be present and not null.
      */
-    public Interviewee(Faculty faculty, Integer yearOfStudy, List<Department> departments, List<Slot> timeslots,
+    public Interviewee(Email personalEmail, Email nusEmail, Faculty faculty, Integer yearOfStudy,
+                       List<Department> departmentChoices, List<Slot> availableTimeslots,
                        Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        // TODO: Remove dependency on emails here and in test cases
         super(name, phone, email, address, tags);
         this.faculty = faculty;
         this.yearOfStudy = yearOfStudy;
-        this.departments = departments;
-        this.timeslots = timeslots;
+        this.departmentChoices = departmentChoices;
+        this.availableTimeslots = availableTimeslots;
+        emails.addEmail(PERSONAL, personalEmail);
+        emails.addEmail(NUS, nusEmail);
     }
 
     // Getters and misc methods
@@ -37,12 +45,16 @@ public class Interviewee extends Person {
         return yearOfStudy;
     }
 
-    public List<Department> getDepartments() {
-        return departments;
+    public List<Department> getDepartmentChoices() {
+        return departmentChoices;
     }
 
-    public List<Slot> getTimeslots() {
-        return timeslots;
+    public List<Slot> getAvailableTimeslots() {
+        return availableTimeslots;
+    }
+
+    public Emails getEmails() {
+        return emails;
     }
 
     /**
@@ -61,16 +73,17 @@ public class Interviewee extends Person {
 
         Interviewee otherInterviewee = (Interviewee) other;
         return super.equals(other)
+                && otherInterviewee.getEmails().equals(getEmails())
                 && otherInterviewee.getFaculty().equals(getFaculty())
                 && otherInterviewee.getYearOfStudy().equals(getYearOfStudy())
-                && otherInterviewee.getDepartments().equals(getDepartments())
-                && otherInterviewee.getTimeslots().equals(getTimeslots());
+                && otherInterviewee.getDepartmentChoices().equals(getDepartmentChoices())
+                && otherInterviewee.getAvailableTimeslots().equals(getAvailableTimeslots());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(faculty, yearOfStudy, departments, timeslots,
+        return Objects.hash(emails, faculty, yearOfStudy, departmentChoices, availableTimeslots,
                 getName(), getPhone(), getAddress(), getEmail(), getTags());
     }
 
@@ -80,8 +93,8 @@ public class Interviewee extends Person {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Emails: ")
+                .append(getEmails())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Faculty: ")
@@ -89,9 +102,9 @@ public class Interviewee extends Person {
                 .append(" Year of study: ")
                 .append(getYearOfStudy())
                 .append(" Choice of departments: ")
-                .append(getDepartments())
+                .append(getDepartmentChoices())
                 .append(" Time slots: ")
-                .append(getTimeslots())
+                .append(getAvailableTimeslots())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
