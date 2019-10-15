@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
-
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -21,7 +19,7 @@ public class ColumnTest {
     // Change this to return Interviewee
     @Test
     public void getInterviewer_skeleton_true() {
-        Person person = new Person(new Name("John Doe"), new Phone("12345678"), new Email("johndoe@mail.com"),
+        Person person = new Person(new Name("John Doe"), new Phone("12345678"),
             new Address("Singapore"), new HashSet<>());
         assertEquals(person, new Column().getInterviewer());
     }
@@ -29,7 +27,7 @@ public class ColumnTest {
     // Change this to return Interivewee instead later
     @Test
     public void getInterviewee_indexSkeleton_true() {
-        Person person = new Person(new Name("John Doe"), new Phone("12345678"), new Email("johndoe@mail.com"),
+        Person person = new Person(new Name("John Doe"), new Phone("12345678"),
             new Address("Singapore"), new HashSet<>());
         assertEquals(person, new Column().getInterviewee(0));
     }
@@ -37,7 +35,7 @@ public class ColumnTest {
     // Change this to return Interivewee instead later
     @Test
     public void getInterviewee_timingSkeleton_true() {
-        Person person = new Person(new Name("John Doe"), new Phone("12345678"), new Email("johndoe@mail.com"),
+        Person person = new Person(new Name("John Doe"), new Phone("12345678"),
             new Address("Singapore"), new HashSet<>());
         assertEquals(person, new Column().getInterviewee("26/10/2019 6:00pm-6:30pm"));
     }
