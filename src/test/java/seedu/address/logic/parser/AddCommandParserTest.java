@@ -37,6 +37,7 @@ import seedu.address.testutil.PersonBuilder;
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
+    // TODO: Add more tests according to how AddCommandParser has been changed.
     @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
