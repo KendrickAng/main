@@ -25,9 +25,9 @@ public class Interviewee extends Person {
      */
     public Interviewee(Email personalEmail, Email nusEmail, Faculty faculty, Integer yearOfStudy,
                        List<Department> departmentChoices, List<Slot> availableTimeslots,
-                       Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+                       Name name, Phone phone, Address address, Set<Tag> tags) {
         // TODO: Remove dependency on emails here and in test cases
-        super(name, phone, email, address, tags);
+        super(name, phone, address, tags);
         this.faculty = faculty;
         this.yearOfStudy = yearOfStudy;
         this.departmentChoices = departmentChoices;
@@ -84,7 +84,7 @@ public class Interviewee extends Person {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(emails, faculty, yearOfStudy, departmentChoices, availableTimeslots,
-                getName(), getPhone(), getAddress(), getEmail(), getTags());
+                getName(), getPhone(), getAddress(), getTags());
     }
 
     @Override

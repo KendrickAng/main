@@ -18,8 +18,8 @@ public class Interviewer extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Interviewer(Department department, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        super(name, phone, email, address, tags);
+    public Interviewer(Department department, Name name, Phone phone, Address address, Set<Tag> tags) {
+        super(name, phone, address, tags);
         this.department = department;
     }
     // TODO: Implementation
