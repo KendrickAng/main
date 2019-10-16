@@ -98,6 +98,8 @@ public class Interviewer extends Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Role ")
+                .append(getClass().getSimpleName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Address: ")

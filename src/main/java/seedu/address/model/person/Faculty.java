@@ -7,8 +7,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class Faculty {
 
-    public static final String MESSAGE_CONSTRAINTS = "Placeholder";
-    public static final String VALIDATION_REGEX = "Placeholder";
+    public static final String MESSAGE_CONSTRAINTS = "Faculty placeholder";
+    public static final String VALIDATION_REGEX = "Faculty placeholder";
     public final String faculty;
 
     /**
@@ -18,7 +18,7 @@ public class Faculty {
      */
     public Faculty(String faculty) {
         requireNonNull(faculty);
-        // TODO: argument checking
+        // TODO: argument checking and update isValid
         // checkArgument(isValidDepartment(faculty), MESSAGE_CONSTRAINTS);
         this.faculty = faculty;
     }
@@ -27,7 +27,8 @@ public class Faculty {
      * Returns true if the given string is a valid faculty.
      */
     public static boolean isValidFaculty(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return true;
+        // test.matches(VALIDATION_REGEX);
     }
 
     @Override

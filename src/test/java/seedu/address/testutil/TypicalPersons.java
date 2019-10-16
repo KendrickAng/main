@@ -22,7 +22,13 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Interviewee AATROX = new PersonBuilder()
+    public static final Interviewee ANSON = new IntervieweeBuilder(new PersonBuilder().withName("Anson Pauline")
+            .withAddress("123, Jurong West Ave 6, #08-111").withPhone("94351253").withTags("friends").build())
+            .withFaculty("School of computing")
+            .withYearOfStudy("2019")
+            .withDepartmentChoices("Marketing")
+            .withTimeslots(Arrays.asList("16/10/2019"), Arrays.asList("0000"), Arrays.asList("2359"))
+            .build();
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111")

@@ -9,9 +9,9 @@ import java.util.Objects;
  */
 public class Slot {
 
-    public static final String MESSAGE_CONSTRAINTS = "Placeholder";
-    public static final String SLOT_VALIDATION_REGEX = "Placeholder";
-    public static final String DATE_VALIDATION_REGEX = "Placeholder";
+    public static final String MESSAGE_CONSTRAINTS = "Slot placeholder";
+    public static final String SLOT_VALIDATION_REGEX = "Slot placeholder";
+    public static final String DATE_VALIDATION_REGEX = "Slot placeholder";
     public static final String STRING_FORMAT = "%s %s - %s";
     // TODO: Abstract out to DateTime class
     // The plan is for users to input DD/MM/YY HH:MM for both start and end
@@ -21,7 +21,7 @@ public class Slot {
 
     public Slot(String date, String start, String end) {
         requireAllNonNull(date, start, end);
-        // TODO: Argument checking
+        // TODO: Argument checking and update isValid
         // checkArgument(isValidSlot(start), MESSAGE_CONSTRAINTS);
         // checkArgument(isValidSlot(end), MESSAGE_CONSTRAINTS);
         this.date = date;
@@ -33,14 +33,16 @@ public class Slot {
      * Returns true if the given slot timing is in valid format.
      */
     public static boolean isValidSlot(String test) {
-        return test.matches(SLOT_VALIDATION_REGEX);
+        return true;
+        // test.matches(SLOT_VALIDATION_REGEX);
     }
 
     /**
      * Returns true if the given date is in valid format.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX);
+        return true;
+        // test.matches(DATE_VALIDATION_REGEX);
     }
 
     @Override

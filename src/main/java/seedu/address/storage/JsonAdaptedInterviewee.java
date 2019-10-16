@@ -28,6 +28,7 @@ import seedu.address.model.tag.Tag;
  */
 public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
 
+    // TODO: Probably need to store type of role E.g interviewee/interviewer
     private final String faculty;
     private final Integer yearOfStudy;
     private final List<JsonAdaptedDepartment> departmentChoices = new ArrayList<>(); // choice of departments
