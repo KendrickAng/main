@@ -26,4 +26,8 @@ class JsonAdaptedIntervieweeTest {
         JsonAdaptedInterviewee interviewee = new JsonAdaptedInterviewee(ANSON);
         assertEquals(ANSON, interviewee.toModelType());
     }
+
+//    @Test void toModelType_invalidName_throwsIllegalValueException() {
+//        JsonAdaptedInterviewee interviewee = new JsonAdaptedInterviewee()
+//    }
 }
