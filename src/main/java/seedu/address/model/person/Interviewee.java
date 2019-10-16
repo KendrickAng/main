@@ -1,8 +1,5 @@
 package seedu.address.model.person;
 
-import static seedu.address.model.person.EmailType.NUS;
-import static seedu.address.model.person.EmailType.PERSONAL;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -18,21 +15,20 @@ public class Interviewee extends Person {
     private final Integer yearOfStudy;
     private final List<Department> departmentChoices; // choice of departments
     private final List<Slot> availableTimeslots; // allocated interview time slots
-    private final Emails emails = new Emails(); // personal, NUS emails etc
+    private final Emails emails; // personal, NUS emails etc
 
     /**
      * Every field must be present and not null.
      */
-    private Interviewee(Email personalEmail, Email nusEmail, Faculty faculty, Integer yearOfStudy,
-                       List<Department> departmentChoices, List<Slot> availableTimeslots,
+    private Interviewee(Faculty faculty, Integer yearOfStudy,
+                       List<Department> departmentChoices, List<Slot> availableTimeslots, Emails emails,
                        Name name, Phone phone, Address address, Set<Tag> tags) {
         super(name, phone, address, tags);
         this.faculty = faculty;
         this.yearOfStudy = yearOfStudy;
         this.departmentChoices = departmentChoices;
         this.availableTimeslots = availableTimeslots;
-        emails.addEmail(PERSONAL, personalEmail);
-        emails.addEmail(NUS, nusEmail);
+        this.emails = emails;
     }
 
     /**
@@ -46,8 +42,7 @@ public class Interviewee extends Person {
         private final Set<Tag> tags;
 
         // Optional parameters - initialised to default values
-        private Email personalEmail = DefaultValues.DEFAULT_PERSONAL_EMAIL;
-        private Email nusEmail = DefaultValues.DEFAULT_NUS_EMAIL;
+        private Emails emails = DefaultValues.DEFAULT_EMAILS;
         private Faculty faculty = DefaultValues.DEFAULT_FACULTY;
         private Integer yearOfStudy = DefaultValues.DEFAULT_YEAR_OF_STUDY;
         private List<Department> departmentChoices = DefaultValues.DEFAULT_DEPARTMENTS;
@@ -60,13 +55,8 @@ public class Interviewee extends Person {
             this.tags = tags;
         }
 
-        public IntervieweeBuilder personalEmail(Email val) {
-            personalEmail = val;
-            return this;
-        }
-
-        public IntervieweeBuilder nusEmail(Email val) {
-            nusEmail = val;
+        public IntervieweeBuilder emails(Emails val) {
+            emails = val;
             return this;
         }
 
@@ -91,8 +81,8 @@ public class Interviewee extends Person {
         }
 
         public Interviewee build() {
-            return new Interviewee(personalEmail, nusEmail, faculty, yearOfStudy, departmentChoices,
-                    availableTimeslots, name, phone, address, tags);
+            return new Interviewee(faculty, yearOfStudy, departmentChoices,
+                    availableTimeslots, emails, name, phone, address, tags);
         }
     }
 

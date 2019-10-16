@@ -92,4 +92,19 @@ class JsonAdaptedPerson {
         return new Person(modelName, modelPhone, modelAddress, modelTags);
     }
 
+    public List<JsonAdaptedTag> getTagged() {
+        return tagged;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }

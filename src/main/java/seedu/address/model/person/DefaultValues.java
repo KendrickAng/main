@@ -13,6 +13,9 @@ public class DefaultValues {
     // Interviewee
     public static final Email DEFAULT_PERSONAL_EMAIL = new Email("defaultPersonalEmail@example.com");
     public static final Email DEFAULT_NUS_EMAIL = new Email("defaultNusEmail@example.com");
+    public static final Emails DEFAULT_EMAILS = new Emails()
+                .addPersonalEmail(DEFAULT_PERSONAL_EMAIL)
+                .addNusEmail(DEFAULT_NUS_EMAIL);
     public static final Faculty DEFAULT_FACULTY = new Faculty("Default faculty");
     public static final Integer DEFAULT_YEAR_OF_STUDY = 2019;
     public static final List<Department> DEFAULT_DEPARTMENTS = new ArrayList<>();
