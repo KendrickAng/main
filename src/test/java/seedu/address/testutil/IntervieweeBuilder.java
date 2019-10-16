@@ -10,14 +10,17 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building Interviewee objects.
+ */
 public class IntervieweeBuilder extends PersonBuilder {
 
     public static final String DEFAULT_FACULTY = "School of Computing";
     public static final String DEFAULT_YEAR_OF_STUDY = "2019";
     public static final String DEFAULT_DEPARTMENT = "Marketing";
     public static final String DEFAULT_SLOT_DATE = "16/10/2019";
-    public static final String DEFAULT_SLOT_START = "0000";
-    public static final String DEFAULT_SLOT_END = "2359";
+    public static final String DEFAULT_SLOT_START = "00:00";
+    public static final String DEFAULT_SLOT_END = "23:59";
 
     private Faculty faculty;
     private Integer yearOfStudy;
@@ -44,26 +47,41 @@ public class IntervieweeBuilder extends PersonBuilder {
         allocatedTimeslots = toCopy.getAvailableTimeslots();
     }
 
+    /**
+     * Sets the {@code Faculty} of the {@code Interviewee} that we are building.
+     */
     public IntervieweeBuilder withFaculty(String faculty) {
         this.faculty = new Faculty(faculty);
         return this;
     }
 
+    /**
+     * Sets the stud year of the {@code Interviewee} that we are building.
+     */
     public IntervieweeBuilder withYearOfStudy(String yearOfStudy) {
         this.yearOfStudy = Integer.parseInt(yearOfStudy);
         return this;
     }
 
+    /**
+     * Sets the {@code Department}s of the {@code Interviewee} that we are building.
+     */
     public IntervieweeBuilder withDepartmentChoices(String... departments) {
         this.departmentChoices = SampleDataUtil.getDepartmentList(departments);
         return this;
     }
 
+    /**
+     * Sets the {@code Slot}s of the {@code Interviewee} that we are building.
+     */
     public IntervieweeBuilder withTimeslots(List<String> dates, List<String> starts, List<String> ends) {
         this.allocatedTimeslots = SampleDataUtil.getTimeslotList(dates, starts, ends);
         return this;
     }
 
+    /**
+     * Builds the Interviewee.
+     */
     public Interviewee build() {
         return new Interviewee.IntervieweeBuilder(getName(), getPhone(), getAddress(), getTags())
                     .faculty(faculty)

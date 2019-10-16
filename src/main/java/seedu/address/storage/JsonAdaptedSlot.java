@@ -44,7 +44,7 @@ public class JsonAdaptedSlot {
      * @throws IllegalValueException if there were any data constraints violated in the adapted department.
      */
     public Slot toModelType() throws IllegalValueException {
-        if (!Slot.isValidSlot(start) || !Slot.isValidSlot(end) || !Slot.isValidDate(date)) {
+        if (!Slot.isValidSlot(String.format(Slot.STRING_FORMAT, date, start, end))) {
             throw new IllegalValueException(Slot.MESSAGE_CONSTRAINTS);
         }
         return new Slot(date, start, end);

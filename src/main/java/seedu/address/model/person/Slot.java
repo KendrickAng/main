@@ -53,7 +53,7 @@ public class Slot {
      */
     public Slot(String date, String start, String end) {
         requireAllNonNull(date, start, end);
-        checkArgument(isValidSlot(start), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidSlot(String.format(STRING_FORMAT, date, start, end)), MESSAGE_CONSTRAINTS);
         this.date = date;
         this.start = start;
         this.end = end;
@@ -82,14 +82,6 @@ public class Slot {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns true if the given date is in valid format.
-     */
-    public static boolean isValidDate(String test) {
-        return true;
-        // test.matches(DATE_VALIDATION_REGEX);
     }
 
     @Override

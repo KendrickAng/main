@@ -27,7 +27,7 @@ public class TypicalPersons {
             .withFaculty("School of computing")
             .withYearOfStudy("2019")
             .withDepartmentChoices("Marketing")
-            .withTimeslots(Arrays.asList("16/10/2019"), Arrays.asList("0000"), Arrays.asList("2359"))
+            .withTimeslots(Arrays.asList("16/10/2019"), Arrays.asList("00:00"), Arrays.asList("23:59"))
             .build();
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")

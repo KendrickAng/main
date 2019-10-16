@@ -10,6 +10,11 @@ import seedu.address.model.Schedule;
  */
 public class DefaultValues {
 
+    // Person
+    public static final Name DEFAULT_NAME = new Name("Anson Bellfield");
+    public static final Phone DEFAULT_PHONE = new Phone("90091234");
+    public static final Address DEFAULT_ADDRESS = new Address("23 Hillview Heights");
+
     // Interviewee
     public static final Email DEFAULT_PERSONAL_EMAIL = new Email("defaultPersonalEmail@example.com");
     public static final Email DEFAULT_NUS_EMAIL = new Email("defaultNusEmail@example.com");

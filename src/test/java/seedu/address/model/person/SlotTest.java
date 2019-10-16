@@ -21,6 +21,11 @@ class SlotTest {
     }
 
     @Test
+    public void constructorThreeArgs_validInput_noExceptionThrows() {
+        new Slot("16/10/2019", "00:00", "23:59");
+    }
+
+    @Test
     public void isValidSlot() {
         // null slot
         assertThrows(NullPointerException.class, () -> new Slot(null));
@@ -34,6 +39,7 @@ class SlotTest {
         assertFalse(Slot.isValidSlot("01/10/2019 24:59-24:60")); // incorrect time format
 
         // valid slot
+        assertTrue(Slot.isValidSlot(String.format(Slot.STRING_FORMAT, "16/10/2019", "00:00", "23:59")));
         assertTrue(Slot.isValidSlot("01/01/1997 10:00-10:10"));
         assertTrue(Slot.isValidSlot("01/01/0001 00:00-00:01"));
         assertTrue(Slot.isValidSlot("11/01/0001 00:00-00:01"));
