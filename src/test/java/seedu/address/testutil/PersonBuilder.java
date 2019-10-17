@@ -77,4 +77,19 @@ public class PersonBuilder {
         return new Person(name, phone, address, tags);
     }
 
+    public Name getName() {
+        return name;
+    }
+
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
 }

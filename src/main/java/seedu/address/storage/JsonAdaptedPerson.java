@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -92,4 +93,19 @@ class JsonAdaptedPerson {
         return new Person(modelName, modelPhone, modelAddress, modelTags);
     }
 
+    public List<JsonAdaptedTag> getTagged() {
+        return tagged;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }

@@ -1,15 +1,19 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Department;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Slot;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -54,6 +58,31 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a department list containing the list of strings given.
+     */
+    public static List<Department> getDepartmentList(String... strings) {
+        return Arrays.stream(strings)
+                .map(Department::new)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a time slot list containing the input given.
+     * @param dates the list of dates in order.
+     * @param starts the list of start timings in order.
+     * @param ends the list of end timings in order.
+     * @return the list of time slots.
+     */
+    public static List<Slot> getTimeslotList(List<String> dates, List<String> starts, List<String> ends) {
+        if (dates.size() == starts.size() && dates.size() == ends.size()) {
+            return IntStream.range(0, dates.size())
+                    .mapToObj(x -> new Slot(dates.get(x), starts.get(x), ends.get(x)))
+                    .collect(Collectors.toList());
+        }
+        throw new IllegalArgumentException("All input lists should be of equal length.");
     }
 
 }
