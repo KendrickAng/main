@@ -25,6 +25,9 @@ public class Interviewer extends Person {
         this.department = department;
     }
 
+    /**
+     * Static builder class for Interviewer.
+     */
     public static class InterviewerBuilder {
         // Required parameters for Person
         private final Name name;
@@ -43,16 +46,25 @@ public class Interviewer extends Person {
             this.tags = tags;
         }
 
+        /**
+         * Sets the optional {@code List<Schedule>} to create the Interviewer object.
+         */
         public InterviewerBuilder schedules(List<Schedule> val) {
             schedules = val;
             return this;
         }
 
+        /**
+         * Sets the optional {@code Department} to create the Interviewer object.
+         */
         public InterviewerBuilder department(Department val) {
             department = val;
             return this;
         }
 
+        /**
+         * Build and return the Interviewer object.
+         */
         public Interviewer build() {
             return new Interviewer(schedules, department, name, phone, address, tags);
         }

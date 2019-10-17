@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Schedule;
 import seedu.address.model.person.Address;
@@ -87,7 +88,8 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
         final Phone modelPhone = new Phone(phone);
         // check address
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
@@ -95,7 +97,8 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
         // check department
         if (department == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Department.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Department.class.getSimpleName()));
         }
         final Department modelDepartment = new Department(department);
         // no need to check tags

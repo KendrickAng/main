@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Department;
@@ -79,8 +80,8 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
         emails.putAll(source.getEmails().getAllEmails().entrySet()
                 .stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey().toString(),
-                        entry -> entry.getValue().stream().map(Email::toString).collect(Collectors.toList()))
+                    entry -> entry.getKey().toString(),
+                    entry -> entry.getValue().stream().map(Email::toString).collect(Collectors.toList()))
                 ));
     }
 
@@ -115,8 +116,7 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
 
         // check name
         if (name == null) {
-            throw new IllegalValueException(String.
-                    format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -124,8 +124,7 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
         final Name modelName = new Name(name);
         // check phone
         if (phone == null) {
-            throw new IllegalValueException(String.
-                    format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);

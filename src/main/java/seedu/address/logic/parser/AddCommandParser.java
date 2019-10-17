@@ -52,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (role.getRole() == RoleType.INTERVIEWEE) {
             person = new Interviewee.IntervieweeBuilder(name, phone, address, tagList).build();
         }
-        if (role.getRole() == RoleType.INTERVIEWER){
+        if (role.getRole() == RoleType.INTERVIEWER) {
             person = new Interviewer.InterviewerBuilder(name, phone, address, tagList).build();
         }
 

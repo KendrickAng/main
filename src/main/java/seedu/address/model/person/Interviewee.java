@@ -55,31 +55,49 @@ public class Interviewee extends Person {
             this.tags = tags;
         }
 
+        /**
+         * Sets the optional {@code Emails} to create the Interviewee object.
+         */
         public IntervieweeBuilder emails(Emails val) {
             emails = val;
             return this;
         }
 
+        /**
+         * Sets the optional {@code Faculty} to create the Interviewee object.
+         */
         public IntervieweeBuilder faculty(Faculty val) {
             faculty = val;
             return this;
         }
 
+        /**
+         * Sets the optional {@code Integer} year of study to create the Interviewee object.
+         */
         public IntervieweeBuilder yearOfStudy(Integer val) {
             yearOfStudy = val;
             return this;
         }
 
+        /**
+         * Sets the optional {@code List<Department>} to create the Interviewee object.
+         */
         public IntervieweeBuilder departmentChoices(List<Department> val) {
             departmentChoices = val;
             return this;
         }
 
+        /**
+         * Sets the optional {@code List<Slot>} to create the Interviewee object.
+         */
         public IntervieweeBuilder availableTimeslots(List<Slot> val) {
             availableTimeslots = val;
             return this;
         }
 
+        /**
+         * Builds the Interviewee object.
+         */
         public Interviewee build() {
             return new Interviewee(faculty, yearOfStudy, departmentChoices,
                     availableTimeslots, emails, name, phone, address, tags);
