@@ -64,6 +64,11 @@ public class Emails {
     }
 
     @Override
+    public String toString() {
+        return String.format("%s %s %s %s", PERSONAL, getEmailsOfType(PERSONAL), NUS, getEmailsOfType(NUS));
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Emails // instanceof handles nulls

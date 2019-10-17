@@ -2,12 +2,16 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEPARTMENT_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FACULTY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SLOT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_OF_STUDY_AMY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +31,7 @@ public class TypicalPersons {
             .withFaculty("School of computing")
             .withYearOfStudy("2019")
             .withDepartmentChoices("Marketing")
-            .withTimeslots(Arrays.asList("16/10/2019"), Arrays.asList("00:00"), Arrays.asList("23:59"))
+            .withTimeslots("16/10/2019 00:00-23:59")
             .build();
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
@@ -56,8 +60,11 @@ public class TypicalPersons {
             .withAddress("chicago ave").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+    public static final Person AMY_PERSON = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
+    public static final Interviewee AMY_INTERVIEWEE = new IntervieweeBuilder(AMY_PERSON).withFaculty(VALID_FACULTY_AMY)
+            .withYearOfStudy(VALID_YEAR_OF_STUDY_AMY).withDepartmentChoices(VALID_DEPARTMENT_AMY)
+            .withTimeslots(VALID_SLOT_AMY).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();

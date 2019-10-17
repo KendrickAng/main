@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -70,19 +69,12 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a time slot list containing the input given.
-     * @param dates the list of dates in order.
-     * @param starts the list of start timings in order.
-     * @param ends the list of end timings in order.
-     * @return the list of time slots.
+     * Returns a time slot list containing the list of strings given.
      */
-    public static List<Slot> getTimeslotList(List<String> dates, List<String> starts, List<String> ends) {
-        if (dates.size() == starts.size() && dates.size() == ends.size()) {
-            return IntStream.range(0, dates.size())
-                    .mapToObj(x -> new Slot(dates.get(x), starts.get(x), ends.get(x)))
-                    .collect(Collectors.toList());
-        }
-        throw new IllegalArgumentException("All input lists should be of equal length.");
+    public static List<Slot> getTimeslotList(String...timeslots) {
+        return  Arrays.stream(timeslots)
+                .map(Slot::new)
+                .collect(Collectors.toList());
     }
 
 }

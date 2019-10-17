@@ -55,6 +55,10 @@ public class Interviewee extends Person {
             this.tags = tags;
         }
 
+        public IntervieweeBuilder(Person p) {
+            this(p.getName(), p.getPhone(), p.getAddress(), p.getTags());
+        }
+
         /**
          * Sets the optional {@code Emails} to create the Interviewee object.
          */
@@ -160,7 +164,7 @@ public class Interviewee extends Person {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Role: ")
-                .append(getClass().getSimpleName())
+                .append(getClass().getSimpleName().toLowerCase())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Emails: ")
