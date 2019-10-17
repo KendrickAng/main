@@ -102,9 +102,9 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
         for (JsonAdaptedDepartment d: departmentChoices) {
             departments.add(d.toModelType());
         }
-        final List<Slot> slots = new ArrayList<>();
+        final List<Slot> personSlots = new ArrayList<>();
         for (JsonAdaptedSlot s: availableTimeslots) {
-            slots.add(s.toModelType());
+            personSlots.add(s.toModelType());
         }
         final HashMap<EmailType, List<Email>> personEmails = new HashMap<>();
         for (Map.Entry<String, List<String>> entry: emails.entrySet()) {
@@ -156,7 +156,7 @@ public class JsonAdaptedInterviewee extends JsonAdaptedPerson {
         // no need to check tags
         final Set<Tag> modelTags = new HashSet<>(personTags);
         // no need to check timeslots
-        final List<Slot> modelSlots = new ArrayList<>(slots);
+        final List<Slot> modelSlots = new ArrayList<>(personSlots);
         // no need to check emails
         final Emails modelEmails = new Emails(personEmails);
 

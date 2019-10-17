@@ -17,10 +17,12 @@ import static seedu.address.testutil.TypicalPersons.AMY_INTERVIEWEE;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.LinkedList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -133,7 +135,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

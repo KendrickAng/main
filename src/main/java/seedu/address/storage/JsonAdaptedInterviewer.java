@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Schedule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Slot;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,7 +24,7 @@ import seedu.address.model.tag.Tag;
  */
 public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
 
-    private final List<Schedule> schedules = new ArrayList<>();
+    private final List<JsonAdaptedSlot> availabilities = new ArrayList<>();
     private final String department;
 
     /**
@@ -32,13 +32,14 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedInterviewer(
-            @JsonProperty("schedules") List<Schedule> schedules, @JsonProperty("department") String department,
+            @JsonProperty("availabilities") List<JsonAdaptedSlot> availabilities,
+            @JsonProperty("department") String department,
             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("address") String address, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         super(name, phone, address, tagged);
         this.department = department;
-        if (schedules != null) {
-            this.schedules.addAll(schedules);
+        if (availabilities != null) {
+            this.availabilities.addAll(availabilities);
         }
     }
 
@@ -49,7 +50,10 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
         super(source.getName().fullName, source.getPhone().value, source.getAddress().value,
                 source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         department = source.getDepartment().department;
-        schedules.addAll(source.getSchedules());
+        availabilities.addAll(source.getAvailabilities()
+                .stream()
+                .map(JsonAdaptedSlot::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -65,9 +69,9 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
         for (JsonAdaptedTag tag : getTagged()) {
             personTags.add(tag.toModelType());
         }
-        final List<Schedule> personSchedules = new ArrayList<>();
-        for (Schedule s: schedules) {
-            personSchedules.add(s);
+        final List<Slot> personAvailabilities = new ArrayList<>();
+        for (JsonAdaptedSlot s: availabilities) {
+            personAvailabilities.add(s.toModelType());
         }
 
         // check name
@@ -103,12 +107,12 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
         final Department modelDepartment = new Department(department);
         // no need to check tags
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        // no need to check schedules
-        final List<Schedule> modelSchedules = new ArrayList<>(personSchedules);
+        // no need to check availabilities
+        final List<Slot> modelAvailabilities = new ArrayList<>(personAvailabilities);
 
         return new Interviewer.InterviewerBuilder(modelName, modelPhone, modelAddress, modelTags)
                     .department(modelDepartment)
-                    .schedules(modelSchedules)
+                    .availabilities(modelAvailabilities)
                     .build();
     }
 }

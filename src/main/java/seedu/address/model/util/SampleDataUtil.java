@@ -72,7 +72,7 @@ public class SampleDataUtil {
      * Returns a time slot list containing the list of strings given.
      */
     public static List<Slot> getTimeslotList(String...timeslots) {
-        return  Arrays.stream(timeslots)
+        return Arrays.stream(timeslots)
                 .map(Slot::new)
                 .collect(Collectors.toList());
     }

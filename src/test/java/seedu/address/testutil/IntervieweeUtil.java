@@ -31,10 +31,10 @@ public class IntervieweeUtil extends PersonUtil {
         sb.append(PREFIX_FACULTY + interviewee.getFaculty().faculty + " ");
         sb.append(PREFIX_YEAR_OF_STUDY + interviewee.getYearOfStudy().toString() + " ");
         interviewee.getDepartmentChoices().stream().forEach(
-                d -> sb.append(PREFIX_DEPARTMENT + d.department + " ")
+            d -> sb.append(PREFIX_DEPARTMENT + d.department + " ")
         );
         interviewee.getAvailableTimeslots().stream().forEach(
-                s -> sb.append(PREFIX_SLOT + s.toString() + " ")
+            s -> sb.append(PREFIX_SLOT + s.toString() + " ")
         );
         return sb.toString();
     }

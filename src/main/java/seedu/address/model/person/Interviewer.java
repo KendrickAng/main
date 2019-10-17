@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -12,17 +11,20 @@ import seedu.address.model.tag.Tag;
  */
 public class Interviewer extends Person {
 
-    private final List<Schedule> schedules;
+    // Each availability is given as a string in this format DD/MM/YYYY HH:MM - HH:MM
+    private final List<Slot> availabilities;
     private final Department department;
+    private final Email email;
 
     /**
      * Every field must be present and not null.
      */
-    private Interviewer(List<Schedule> schedules, Department department,
-                        Name name, Phone phone, Address address, Set<Tag> tags) {
+    private Interviewer(Name name, Phone phone, Address address, Set<Tag> tags,
+                        Email email, Department department, List<Slot> availabilities) {
         super(name, phone, address, tags);
-        this.schedules = schedules;
         this.department = department;
+        this.email = email;
+        this.availabilities = availabilities;
     }
 
     /**
@@ -36,22 +38,15 @@ public class Interviewer extends Person {
         private final Set<Tag> tags;
 
         // Optional parameters - initialised to default values
-        private List<Schedule> schedules = DefaultValues.DEFAULT_SCHEDULES;
         private Department department = DefaultValues.DEFAULT_DEPARTMENT;
+        private Email email = DefaultValues.DEFAULT_PERSONAL_EMAIL;
+        private List<Slot> availabilities = DefaultValues.DEFAULT_TIMESLOTS;
 
         public InterviewerBuilder(Name name, Phone phone, Address address, Set<Tag> tags) {
             this.name = name;
             this.phone = phone;
             this.address = address;
             this.tags = tags;
-        }
-
-        /**
-         * Sets the optional {@code List<Schedule>} to create the Interviewer object.
-         */
-        public InterviewerBuilder schedules(List<Schedule> val) {
-            schedules = val;
-            return this;
         }
 
         /**
@@ -63,20 +58,45 @@ public class Interviewer extends Person {
         }
 
         /**
+         * Sets the optional {@code Email} to create the Interviewer object.
+         */
+        public InterviewerBuilder email(Email val) {
+            email = val;
+            return this;
+        }
+
+        /**
+         * Sets the optional {@code List<Slot>} to create the Interviewer object.
+         */
+        public InterviewerBuilder availabilities(List<Slot> val) {
+            availabilities = val;
+            return this;
+        }
+
+        /**
          * Build and return the Interviewer object.
          */
         public Interviewer build() {
-            return new Interviewer(schedules, department, name, phone, address, tags);
+            return new Interviewer(name, phone, address, tags, email, department, availabilities);
         }
     }
 
-    // Getters and misc methods
+    // Getters, setters and misc methods
     public Department getDepartment() {
         return department;
     }
 
-    public List<Schedule> getSchedules() {
-        return schedules;
+    public List<Slot> getAvailabilities() {
+        return availabilities;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setAvailabilities(List<Slot> availabilities) {
+        this.availabilities.clear();
+        this.availabilities.addAll(availabilities);
     }
 
     /**
@@ -96,13 +116,14 @@ public class Interviewer extends Person {
         Interviewer otherInterviewer = (Interviewer) other;
         return super.equals(other)
                 && otherInterviewer.getDepartment().equals(getDepartment())
-                && otherInterviewer.getSchedules().equals(getSchedules());
+                && otherInterviewer.getEmail().equals(getEmail())
+                && otherInterviewer.getAvailabilities().equals(getAvailabilities());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(department, schedules,
+        return Objects.hash(department, email, availabilities,
                 getName(), getPhone(), getAddress(), getTags());
     }
 
@@ -118,6 +139,8 @@ public class Interviewer extends Person {
                 .append(getAddress())
                 .append(" Department ")
                 .append(getDepartment())
+                .append(" Availabilities ")
+                .append(getAvailabilities())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
