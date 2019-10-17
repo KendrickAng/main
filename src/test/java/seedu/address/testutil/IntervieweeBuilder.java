@@ -1,7 +1,8 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Faculty;
@@ -27,24 +28,39 @@ public class IntervieweeBuilder extends PersonBuilder {
     private List<Department> departmentChoices;
     private List<Slot> allocatedTimeslots;
 
+    /**
+     * Initializes the IntervieweeBuilder with all default data.
+     */
+    public IntervieweeBuilder() {
+        this(new PersonBuilder().build());
+    }
+
+    /**
+     * Partially initializes the IntervieweeBuilder with the data of {@code p}.
+     * @param p
+     */
     public IntervieweeBuilder(Person p) {
         super(p);
         this.faculty = new Faculty(DEFAULT_FACULTY);
         this.yearOfStudy = Integer.parseInt(DEFAULT_YEAR_OF_STUDY);
-        this.departmentChoices = new ArrayList<>();
-        departmentChoices.add(new Department(DEFAULT_DEPARTMENT));
-        this.allocatedTimeslots = new ArrayList<>();
-        allocatedTimeslots.add(new Slot(DEFAULT_SLOT_DATE, DEFAULT_SLOT_START, DEFAULT_SLOT_END));
+        this.departmentChoices = Stream.of(new Department(DEFAULT_DEPARTMENT)).collect(Collectors.toList());
+        this.allocatedTimeslots = Stream.of(
+                new Slot(String.format(Slot.STRING_FORMAT, DEFAULT_SLOT_DATE, DEFAULT_SLOT_START, DEFAULT_SLOT_END)))
+                .collect(Collectors.toList());
     }
 
     /**
      * Initializes the IntervieweeBuilder with the data of {@code toCopy}.
      */
-    public IntervieweeBuilder(Interviewee toCopy) {
-        faculty = toCopy.getFaculty();
-        yearOfStudy = toCopy.getYearOfStudy();
-        departmentChoices = toCopy.getDepartmentChoices();
-        allocatedTimeslots = toCopy.getAvailableTimeslots();
+    public IntervieweeBuilder(Interviewee i) {
+        super(i.getName().fullName,
+                i.getPhone().value,
+                i.getAddress().value,
+                i.getTags().stream().map(x -> x.tagName).toArray(String[]::new));
+        faculty = i.getFaculty();
+        yearOfStudy = i.getYearOfStudy();
+        departmentChoices = i.getDepartmentChoices();
+        allocatedTimeslots = i.getAvailableTimeslots();
     }
 
     /**
@@ -74,8 +90,8 @@ public class IntervieweeBuilder extends PersonBuilder {
     /**
      * Sets the {@code Slot}s of the {@code Interviewee} that we are building.
      */
-    public IntervieweeBuilder withTimeslots(List<String> dates, List<String> starts, List<String> ends) {
-        this.allocatedTimeslots = SampleDataUtil.getTimeslotList(dates, starts, ends);
+    public IntervieweeBuilder withTimeslots(String... timeslots) {
+        this.allocatedTimeslots = SampleDataUtil.getTimeslotList(timeslots);
         return this;
     }
 

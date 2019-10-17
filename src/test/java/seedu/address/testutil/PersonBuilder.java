@@ -2,6 +2,8 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -39,6 +41,13 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+    }
+
+    public PersonBuilder(String name, String phone, String address, String... tags) {
+        this.name = new Name(name);
+        this.phone = new Phone(phone);
+        this.address = new Address(address);
+        this.tags = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
     }
 
     /**
