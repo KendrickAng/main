@@ -3,7 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -15,7 +15,9 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
@@ -36,6 +38,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final List<Schedule> schedulesList;
     private List<Interviewee> intervieweesList;
+    private
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
