@@ -79,6 +79,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        // TODO: eventually phase this out to addInterviewee / addInterviewer
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
