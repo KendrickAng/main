@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -76,9 +78,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns a person from the address book given the name
+     * Returns a person from the address book given the person's name.
      */
-    public Person getPerson(String name) throws NoSuchElementException {
+    public Person getPerson(Name name) throws NoSuchElementException {
         requireNonNull(name);
         return persons.asUnmodifiableObservableList().stream()
                 .filter((x) -> x.getName().equals(name))
