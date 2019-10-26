@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -17,6 +18,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.IntervieweeBook;
+import seedu.address.model.InterviewerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -93,8 +96,11 @@ public class MainApp extends Application {
         }
         // For now ModelManager is always initialised with sample schedulesList first
         List<Schedule> schedules = SampleDataUtil.getSampleSchedulesList();
+        // TODO: update with storage#getInterviewees, storage#getInterviewers once done (ken)
+        IntervieweeBook initialInterviewees = new IntervieweeBook();
+        InterviewerBook initialInterviewers = new InterviewerBook();
 
-        return new ModelManager(initialData, userPrefs, schedules);
+        return new ModelManager(initialData, userPrefs, schedules, initialInterviewees, initialInterviewers);
     }
 
     private void initLogging(Config config) {

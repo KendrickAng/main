@@ -39,11 +39,15 @@ public class ModelManager implements Model {
     private final List<Schedule> schedulesList;
     private List<Interviewee> intervieweesList;
 
+    private final IntervieweeBook intervieweeBook; // for now, continue using addressbook as usual.
+    private final InterviewerBook interviewerBook;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-                        List<Schedule> schedulesList) {
+                        List<Schedule> schedulesList,
+                        IntervieweeBook intervieweeBook, InterviewerBook interviewerBook) {
         super();
         requireAllNonNull(addressBook, userPrefs, schedulesList);
 
@@ -51,14 +55,17 @@ public class ModelManager implements Model {
 
         // TODO: Delete these later
         this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.addressBook.getObservableList());
 
         this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
+
+        this.intervieweeBook = intervieweeBook;
+        this.interviewerBook = interviewerBook;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new LinkedList<>());
+        this(new AddressBook(), new UserPrefs(), new LinkedList<>(), new IntervieweeBook(), new InterviewerBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -114,19 +121,6 @@ public class ModelManager implements Model {
         return schedulesList;
     }
 
-    /**
-     * Sets interviewee's data.
-     * @param list list of interviewees
-     */
-    public void setIntervieweesList(List<Interviewee> list) {
-        intervieweesList = cloneIntervieweesList(list);
-        logger.fine("interviewee's list is updated");
-    }
-
-    /** Returns the intervieweesList **/
-    public List<Interviewee> getIntervieweesList() {
-        return intervieweesList;
-    }
 
     /**
      * Returns a list of observable list of the schedules.
@@ -148,6 +142,22 @@ public class ModelManager implements Model {
             titlesLists.add(schedule.getTitles());
         }
         return titlesLists;
+    }
+
+    //============ Interviewee/Interviewer manipulation =========================================================
+
+    /**
+     * Sets interviewee's data.
+     * @param list list of interviewees
+     */
+    public void setIntervieweesList(List<Interviewee> list) {
+        intervieweesList = cloneIntervieweesList(list);
+        logger.fine("interviewee's list is updated");
+    }
+
+    /** Returns the intervieweesList **/
+    public List<Interviewee> getIntervieweesList() {
+        return intervieweesList;
     }
 
     @Override
@@ -223,6 +233,7 @@ public class ModelManager implements Model {
         }
         return date;
     }
+
     /**
      * Adds the given interviewer to schedule(s) in which the interviewer's availability fall.
      * If the interviewer's availability does not fall within any of the schedule, then the interviewer will not
@@ -230,9 +241,15 @@ public class ModelManager implements Model {
      */
     @Override
     public void addInterviewer(Interviewer interviewer) {
+        interviewerBook.add(interviewer);
         for (Schedule schedule : schedulesList) {
             schedule.addInterviewer(interviewer);
         }
+    }
+
+    @Override
+    public void addInterviewee(Interviewee interviewee) {
+        intervieweeBook.add(interviewee);
     }
 
     /**
@@ -288,6 +305,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addPerson(Person person) {
+        if (person instanceof Interviewer) {
+            addInterviewer((Interviewer) person);
+        }
+        if (person instanceof Interviewee) {
+            addInterviewee((Interviewee) person);
+        }
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }

@@ -94,6 +94,11 @@ public interface Model {
     void addInterviewer(Interviewer interviewer);
 
     /**
+     * Adds an interviewee to the interviewee-equivalent of addressbook. Must be unique.
+     */
+    void addInterviewee(Interviewee interviewee);
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
