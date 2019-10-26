@@ -38,7 +38,6 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final List<Schedule> schedulesList;
     private List<Interviewee> intervieweesList;
-    private
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
