@@ -30,7 +30,7 @@ import seedu.address.model.person.Person;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addEntity";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -64,7 +64,7 @@ public class AddCommand extends Command {
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to addEntity the specified {@code Person}
      */
     public AddCommand(Person person) {
         requireNonNull(person);
@@ -79,7 +79,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        // TODO: eventually phase this out to addInterviewee / addInterviewer
+        // TODO: eventually phase this out to addInterviewee / addInterviewerToSchedule
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

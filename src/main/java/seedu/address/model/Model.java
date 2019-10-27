@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -23,40 +22,73 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    // IntervieweeBook and InterviewerBook (Ken)
-    // ==================================================
+    // IntervieweeList and InterviewerList (Ken)
+    // ========================================================================================
+
+
+    /**
+     * Adds an interviewer to the model's {@code InterviewerList}. Must be unique.
+     */
+    void addInterviewer(Interviewer interviewer);
+
+    /**
+     * Adds an interviewee to the model's {@code IntervieweeList}. Must be unique.
+     */
+    void addInterviewee(Interviewee interviewee);
+
     /**
      * Returns the interviewee book.
      */
-    ListBasedBook<Interviewee> getIntervieweeBook();
-
-    /**
-     * Returns an unmodifiable list view of {@code Interviewee} backed by the internal list of {@code IntervieweeBook}.
-     */
-    ObservableList<Interviewee> getFilteredIntervieweeList();
-
-    /**
-     * Restricts the {@code ObservableList} of interviewee to display only what fulfills Predicate while leaving the
-     * original {@code IntervieweeBook} unmodified.
-     */
-    void updateFilteredIntervieweeList(Predicate<Interviewee> predicate);
+    ReadAndWriteList<Interviewee> getIntervieweeList();
 
     /**
      * Returns the interviewer book.
      */
-    ListBasedBook<Interviewer> getInterviewerBook();
+    ReadAndWriteList<Interviewer> getInterviewerList();
+
+    /**
+     * Returns an unmodifiable list view of {@code Interviewee} backed by the internal list of {@code IntervieweeList}.
+     */
+    ObservableList<Interviewee> getFilteredIntervieweeList();
+
+    /**
+     * Returns an unmodifiable list view of {@code Interviewer} backed by the internal list of {@code InterviewerList}.
+     */
+    ObservableList<Interviewer> getFilteredInterviewerList();
+
+    /**
+     * Restricts the {@code ObservableList} of interviewee to display only what returns true on Predicate while
+     * leaving the original {@code IntervieweeList} unmodified.
+     */
+    void updateFilteredIntervieweeList(Predicate<Interviewee> predicate);
+
+    /**
+     * Restricts the {@code ObservableList} of interviewer to display only what returns true on Predicate while
+     * leaving the original {@code InterviewerList} unmodified.
+     */
+    void updateFilteredInterviewerList(Predicate<Interviewer> predicate);
 
     /**
      * Returns an Interviewee given a name. The Interviewee must exist in the database, or an exception is thrown.
      */
-    Interviewee getInterviewee(Name name) throws NoSuchElementException;
+    Interviewee getInterviewee(String name) throws NoSuchElementException;
 
     /**
-     * Deletes the given interviewee. The interviewee must exist in the interviewee book.
+     * Returns an Interviewer given a name. The Interviewer must exist in the database, or an exception is thrown.
+     */
+    Interviewer getInterviewer(String name) throws NoSuchElementException;
+
+    /**
+     * Deletes the given interviewee from the {@code IntervieweeList}. The interviewee must exist in the interviewee book.
      */
     void deleteInterviewee(Interviewee target) throws PersonNotFoundException;
 
-    // ===================================================
+    /**
+     * Deletes the given interviewer from the {@code InterviewerList}. The interviewer must exist in the book.
+     */
+    void deleteInterviewer(Interviewer target) throws PersonNotFoundException;
+
+    // ==================================================================================================
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -91,6 +123,12 @@ public interface Model {
     /** Returns the schedulesList **/
     List<Schedule> getSchedulesList();
 
+    /**
+     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
+     * and returns true. Otherwise, the method will not addEntity the interviewer and return false.
+     */
+    void addInterviewerToSchedule(Interviewer interviewer);
+
     /** Returns the intervieweesList **/
     List<Interviewee> getIntervieweesList();
 
@@ -117,17 +155,6 @@ public interface Model {
      * Returns the date of the schedule in which the interviewer exists in, otherwise return empty string.
      */
     String hasInterviewer(Interviewer interviewer);
-
-    /**
-     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
-     * and returns true. Otherwise, the method will not add the interviewer and return false.
-     */
-    void addInterviewer(Interviewer interviewer);
-
-    /**
-     * Adds an interviewee to the interviewee-equivalent of addressbook. Must be unique.
-     */
-    void addInterviewee(Interviewee interviewee);
 
     /**
      * Returns the user prefs' address book file path.

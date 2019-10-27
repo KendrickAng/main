@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.Schedule;
@@ -88,8 +91,16 @@ public class SampleDataUtil {
      */
     public static List<Department> getDepartmentList(String... strings) {
         return Arrays.stream(strings)
-                .map(Department::new)
+                .map(SampleDataUtil::parseDepartment)
                 .collect(Collectors.toList());
+    }
+
+    private static Department parseDepartment(String s) {
+        try {
+            return ParserUtil.parseDepartment(s);
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
+        }
     }
 
     /**

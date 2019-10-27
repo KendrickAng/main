@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
@@ -28,7 +29,6 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private final Name targetName;
-    // TODO: make use of targetRole after implementing Model changes.
     private final Role targetRole;
 
     public DeleteCommand(Name targetName, Role targetRole) {
@@ -42,17 +42,19 @@ public class DeleteCommand extends Command {
         String deleted;
         try {
             if (targetRole.value.equals("interviewee")) {
-                Interviewee i = model.getInterviewee(targetName);
+                Interviewee i = model.getInterviewee(targetName.fullName);
                 model.deleteInterviewee(i);
-                // TODO: remove this later on (ken)
-                Person p = model.getPerson(targetName.fullName);
-                model.deletePerson(p);
                 deleted = i.toString();
-            } else if (targetRole.value.equals("interviewer")) {
-                // Interviewer personToDelete = model.getInterviewer(targetName);
+                // TODO: for backward compatibility, remove this once addressbook is removed (ken)
                 Person p = model.getPerson(targetName.fullName);
                 model.deletePerson(p);
-                deleted = p.toString();
+            } else if (targetRole.value.equals("interviewer")) {
+                Interviewer i = model.getInterviewer(targetName.fullName);
+                model.deleteInterviewer(i);
+                deleted = i.toString();
+                // TODO: for backward compatibility, remove this once addressbook is removed (ken)
+                Person p = model.getPerson(targetName.fullName);
+                model.deletePerson(p);
             } else {
                 throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
             }

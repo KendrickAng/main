@@ -25,7 +25,9 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.IntervieweeBook;
+import seedu.address.model.InterviewerBook;
 import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
 
 /**
@@ -55,7 +57,7 @@ public class TypicalPersons {
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442").build();
 
-    // Interviewees
+    // Typical Interviewees
     public static final Interviewee ALICE_INTERVIEWEE = new IntervieweeBuilder(ALICE).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
@@ -77,6 +79,22 @@ public class TypicalPersons {
     public static final Interviewee GEORGE_INTERVIEWEE = new IntervieweeBuilder(GEORGE).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+
+    // Typical Interviewers
+    public static final Interviewer ALICE_INTERVIEWER = new InterviewerBuilder(ALICE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer BENSON_INTERVIEWER = new InterviewerBuilder(BENSON).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer CARL_INTERVIEWER = new InterviewerBuilder(CARL).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer DANIEL_INTERVIEWER = new InterviewerBuilder(DANIEL).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer ELLE_INTERVIEWER = new InterviewerBuilder(ELLE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer FIONA_INTERVIEWER = new InterviewerBuilder(FIONA).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer GEORGE_INTERVIEWER = new InterviewerBuilder(GEORGE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").build();
@@ -115,6 +133,10 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
+    /**
+     * Returns an {@code IntervieweeBook} with all the typical interviewees.
+     * @return
+     */
     public static IntervieweeBook getTypicalIntervieweeBook() {
         IntervieweeBook ib = new IntervieweeBook();
         for (Interviewee i: getTypicalInterviewees()) {
@@ -126,5 +148,18 @@ public class TypicalPersons {
     public static List<Interviewee> getTypicalInterviewees() {
         return new ArrayList<>(Arrays.asList(ALICE_INTERVIEWEE, BENSON_INTERVIEWEE, CARL_INTERVIEWEE,
                 DANIEL_INTERVIEWEE, ELLE_INTERVIEWEE, FIONA_INTERVIEWEE, GEORGE_INTERVIEWEE));
+    }
+
+    public static InterviewerBook getTypicalInterviewerBook() {
+        InterviewerBook ib = new InterviewerBook();
+        for (Interviewer i: getTypicalInterviewers()) {
+            ib.add(i);
+        }
+        return ib;
+    }
+
+    public static List<Interviewer> getTypicalInterviewers() {
+        return new ArrayList<>(Arrays.asList(ALICE_INTERVIEWER, BENSON_INTERVIEWER, CARL_INTERVIEWER,
+                DANIEL_INTERVIEWER, ELLE_INTERVIEWER, FIONA_INTERVIEWER, GEORGE_INTERVIEWER));
     }
 }

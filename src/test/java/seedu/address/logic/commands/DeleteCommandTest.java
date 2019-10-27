@@ -10,17 +10,20 @@ import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.BENSON_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerBook;
 
 import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.model.IntervieweeBook;
 import seedu.address.model.InterviewerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
@@ -39,7 +42,7 @@ public class DeleteCommandTest {
         Interviewee alice = TypicalPersons.ALICE_INTERVIEWEE;
         Role role = new Role("interviewee");
 
-        Interviewee intervieweeToDel = model.getInterviewee(alice.getName());
+        Interviewee intervieweeToDel = model.getInterviewee(alice.getName().fullName);
         Person personToDel = model.getPerson(alice.getName().fullName);
 
         DeleteCommand deleteCommand = new DeleteCommand(alice.getName(), role);
@@ -51,6 +54,30 @@ public class DeleteCommandTest {
                 model.getIntervieweeBook(), model.getInterviewerBook());
 
         expectedModel.deleteInterviewee(intervieweeToDel);
+        expectedModel.deletePerson(personToDel);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validInterviewerUnfilteredList_success() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
+                new IntervieweeBook(), getTypicalInterviewerBook());
+        Interviewer benson = TypicalPersons.BENSON_INTERVIEWER;
+        Role role = new Role("interviewer");
+
+        Interviewer interviewerToDel = model.getInterviewer(benson.getName().fullName);
+        Person personToDel = model.getPerson(benson.getName().fullName);
+
+        DeleteCommand deleteCommand = new DeleteCommand(benson.getName(), role);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, interviewerToDel);
+
+        // create duplicate and remove interviewee
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>(),
+                model.getIntervieweeBook(), model.getInterviewerBook());
+
+        expectedModel.deleteInterviewer(interviewerToDel);
         expectedModel.deletePerson(personToDel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

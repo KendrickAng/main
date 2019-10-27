@@ -111,7 +111,7 @@ public class MainWindow extends UiPart<Stage> {
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
          *
-         * For now, we add following event filter to capture such key events and open
+         * For now, we addEntity following event filter to capture such key events and open
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          */
@@ -128,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
-        // schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
+        // schedulePanelPlaceholder.getChildren().addEntity(scheduleViewPanel.getRoot());
 
         // test code
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
