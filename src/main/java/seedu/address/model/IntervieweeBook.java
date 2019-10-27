@@ -1,0 +1,86 @@
+package seedu.address.model;
+
+import static java.util.Objects.requireNonNull;
+
+import java.util.Optional;
+
+import javafx.collections.ObservableList;
+
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+
+/**
+ * Wraps all interviewee data at the address-book level. Duplicates are not allowed (by Person#isSamePerson).
+ */
+public class IntervieweeBook implements ListBasedBook<Interviewee> {
+
+    private final UniquePersonList<Interviewee> interviewees;
+
+    public IntervieweeBook() {
+        this.interviewees = new UniquePersonList<>();
+    }
+
+    public IntervieweeBook(ListBasedBook<Interviewee> book) {
+        this();
+        resetDataWithBook(book);
+    }
+
+    /**
+     * Adds the interviewee to the book. The interviewee must be unique.
+     * @throws DuplicatePersonException if the interviewee already exists in the book.
+     */
+    @Override
+    public void add(Interviewee interviewee) throws DuplicatePersonException {
+        interviewees.add(interviewee);
+    }
+
+    @Override
+    public Interviewee getPerson(Name name) throws PersonNotFoundException {
+        requireNonNull(name);
+        Optional<Interviewee> i = interviewees.asUnmodifiableObservableList().stream()
+                .filter(interviewee -> interviewee.getName().equals(name))
+                .findAny();
+        if (!i.isPresent()) {
+            throw new PersonNotFoundException();
+        }
+        return i.get();
+    }
+
+    @Override
+    public void removePerson(Interviewee interviewee) throws PersonNotFoundException {
+        interviewees.remove(interviewee);
+    }
+
+    @Override
+    public ObservableList<Interviewee> getObservableList() {
+        return interviewees.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Resets the underlying {@code UniquePersonList<Interviewee>} with that of the {@code book}.
+     */
+    private void resetDataWithBook(ListBasedBook<Interviewee> book) {
+        requireNonNull(book);
+        this.interviewees.setPersons(book.getObservableList());
+    }
+
+    @Override
+    public String toString() {
+        return interviewees.asUnmodifiableObservableList().size() + " interviewees";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof IntervieweeBook// instanceof handles nulls
+                && interviewees.equals(((IntervieweeBook) other).interviewees));
+    }
+
+    @Override
+    public int hashCode() {
+        return interviewees.hashCode();
+    }
+}

@@ -10,6 +10,8 @@ import java.util.LinkedList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.IntervieweeBook;
+import seedu.address.model.InterviewerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,8 +26,10 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
+                new IntervieweeBook(), new InterviewerBook());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>(),
+                new IntervieweeBook(), new InterviewerBook());
     }
 
     @Test

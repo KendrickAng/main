@@ -17,13 +17,17 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.IntervieweeNameHasKeywordsPredicate;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonNameHasKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -98,6 +102,21 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
+    // ==================================================================================================
+    // CUSTOM ASSERTIONS FOR USAGE IN TEST PACKAGE
+    // ==================================================================================================
+
+    /**
+     * Checks that the given {@code interviewee} exsits in the {@code model}.
+     */
+    public static void assertModelHasInterviewee(Model model, Interviewee interviewee) {
+        try {
+            model.getInterviewee(interviewee.getName());
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Interviewee does not exist in model.", e);
+        }
+    }
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -141,6 +160,10 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
+    // ===================================================================================================
+    // CUSTOM CONVENIENCE METHODS FOR TESTING PURPOSES ONLY
+    // ===================================================================================================
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -150,9 +173,21 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new PersonNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered interviewee list to show only the interviewee with {@code name}.
+     */
+    public static void showIntervieweeWithName(Model model, Name name) {
+        try {
+            Interviewee i = model.getInterviewee(name);
+            final String[] splitName = i.getName().fullName.split("\\s+");
+            model.updateFilteredIntervieweeList(new IntervieweeNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Name should exist in the model beforehand!");
+        }
+    }
 }

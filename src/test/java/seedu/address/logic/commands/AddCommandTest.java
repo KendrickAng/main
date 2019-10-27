@@ -20,12 +20,14 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ListBasedBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
 import seedu.address.testutil.PersonBuilder;
@@ -86,6 +88,36 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+        public ListBasedBook<Interviewee> getIntervieweeBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Interviewee> getFilteredIntervieweeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {
+
+        }
+
+        @Override
+        public ListBasedBook<Interviewer> getInterviewerBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Interviewee getInterviewee(Name name) throws NoSuchElementException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteInterviewee(Interviewee target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
@@ -133,16 +165,11 @@ public class AddCommandTest {
         @Override
         public List<List<String>> getTitlesLists() {
             // TODO: Implementation
-            return null;
-        }
-
-        @Override
-        public void emailInterviewee(Interviewee interviewee) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Interviewee getInterviewee(String intervieweeName) {
+        public void emailInterviewee(Interviewee interviewee) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -157,6 +184,11 @@ public class AddCommandTest {
         }
         @Override
         public void addInterviewer(Interviewer interviewer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addInterviewee(Interviewee interviewee) {
             throw new AssertionError("This method should not be called.");
         }
 

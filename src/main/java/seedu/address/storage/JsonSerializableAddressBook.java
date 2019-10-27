@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
 
 /**
@@ -38,12 +39,15 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream()
+        persons.addAll(source.getObservableList().stream()
                 .map(x -> {
                     if (x instanceof Interviewee) {
                         return new JsonAdaptedInterviewee((Interviewee) x);
+                    } else if (x instanceof Interviewer) {
+                        return new JsonAdaptedInterviewer((Interviewer) x);
+                    } else {
+                        return new JsonAdaptedPerson(x);
                     }
-                    return new JsonAdaptedPerson(x);
                 }).collect(Collectors.toList()));
     }
 

@@ -3,7 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -19,12 +19,12 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Messages;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the schedule table data.
@@ -39,11 +39,17 @@ public class ModelManager implements Model {
     private final List<Schedule> schedulesList;
     private List<Interviewee> intervieweesList;
 
+    private final IntervieweeBook intervieweeBook; // functionality not stable, refrain from using
+    private final InterviewerBook interviewerBook;
+    private final FilteredList<Interviewee> filteredInterviewees; // if we want to display all interviewees on UI
+    private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all inteviewers on UI
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-                        List<Schedule> schedulesList) {
+                        List<Schedule> schedulesList,
+                        ListBasedBook<Interviewee> intervieweeBook, ListBasedBook<Interviewer> interviewerBook) {
         super();
         requireAllNonNull(addressBook, userPrefs, schedulesList);
 
@@ -51,14 +57,52 @@ public class ModelManager implements Model {
 
         // TODO: Delete these later
         this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.addressBook.getObservableList());
 
         this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
+
+        this.intervieweeBook = new IntervieweeBook(intervieweeBook);
+        this.interviewerBook = new InterviewerBook(interviewerBook);
+        filteredInterviewees = new FilteredList<>(this.intervieweeBook.getObservableList());
+        filteredInterviewers = new FilteredList<>(this.interviewerBook.getObservableList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new LinkedList<>());
+        this(new AddressBook(), new UserPrefs(), new LinkedList<>(), new IntervieweeBook(), new InterviewerBook());
+    }
+
+    //============ IntervieweeBook/InterviewerBook =========================================================
+
+    @Override
+    public ListBasedBook<Interviewee> getIntervieweeBook() {
+        return intervieweeBook;
+    }
+
+    @Override
+    public ListBasedBook<Interviewer> getInterviewerBook() {
+        return interviewerBook;
+    }
+
+    @Override
+    public ObservableList<Interviewee> getFilteredIntervieweeList() {
+        return filteredInterviewees;
+    }
+
+    @Override
+    public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {
+        requireNonNull(predicate);
+        filteredInterviewees.setPredicate(predicate);
+    }
+
+    @Override
+    public Interviewee getInterviewee(Name intervieweeName) throws NoSuchElementException {
+        return intervieweeBook.getPerson(intervieweeName);
+    }
+
+    @Override
+    public void deleteInterviewee(Interviewee target) throws PersonNotFoundException {
+        intervieweeBook.removePerson(target);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -114,19 +158,6 @@ public class ModelManager implements Model {
         return schedulesList;
     }
 
-    /**
-     * Sets interviewee's data.
-     * @param list list of interviewees
-     */
-    public void setIntervieweesList(List<Interviewee> list) {
-        intervieweesList = cloneIntervieweesList(list);
-        logger.fine("interviewee's list is updated");
-    }
-
-    /** Returns the intervieweesList **/
-    public List<Interviewee> getIntervieweesList() {
-        return intervieweesList;
-    }
 
     /**
      * Returns a list of observable list of the schedules.
@@ -150,15 +181,18 @@ public class ModelManager implements Model {
         return titlesLists;
     }
 
-    @Override
-    public Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException {
-        Person person = getPerson(intervieweeName);
+    /**
+     * Sets interviewee's data.
+     * @param list list of interviewees
+     */
+    public void setIntervieweesList(List<Interviewee> list) {
+        intervieweesList = cloneIntervieweesList(list);
+        logger.fine("interviewee's list is updated");
+    }
 
-        if (person instanceof Interviewee) {
-            return (Interviewee) person;
-        } else {
-            throw new NoSuchElementException(Messages.MESSAGE_INVALID_PERSON_NAME);
-        }
+    /** Returns the intervieweesList **/
+    public List<Interviewee> getIntervieweesList() {
+        return intervieweesList;
     }
 
     /**
@@ -223,6 +257,7 @@ public class ModelManager implements Model {
         }
         return date;
     }
+
     /**
      * Adds the given interviewer to schedule(s) in which the interviewer's availability fall.
      * If the interviewer's availability does not fall within any of the schedule, then the interviewer will not
@@ -230,9 +265,15 @@ public class ModelManager implements Model {
      */
     @Override
     public void addInterviewer(Interviewer interviewer) {
+        interviewerBook.add(interviewer);
         for (Schedule schedule : schedulesList) {
             schedule.addInterviewer(interviewer);
         }
+    }
+
+    @Override
+    public void addInterviewee(Interviewee interviewee) {
+        intervieweeBook.add(interviewee);
     }
 
     /**
@@ -282,12 +323,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
+        if (person instanceof Interviewer) {
+            addInterviewer((Interviewer) person);
+        }
+        if (person instanceof Interviewee) {
+            addInterviewee((Interviewee) person);
+        }
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
@@ -337,6 +384,10 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
             && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+            && filteredPersons.equals(other.filteredPersons)
+            && intervieweeBook.equals(other.intervieweeBook)
+            && interviewerBook.equals(other.interviewerBook)
+            && filteredInterviewees.equals(other.filteredInterviewees)
+            && filteredInterviewers.equals(other.filteredInterviewers);
     }
 }

@@ -28,7 +28,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getObservableList());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class AddressBookTest {
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getObservableList().remove(0));
     }
 
     /**
@@ -95,7 +95,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
+        public ObservableList<Person> getObservableList() {
             return persons;
         }
     }
