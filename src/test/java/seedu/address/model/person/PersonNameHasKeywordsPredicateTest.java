@@ -19,13 +19,15 @@ public class PersonNameHasKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         PersonNameHasKeywordsPredicate firstPredicate = new PersonNameHasKeywordsPredicate(firstPredicateKeywordList);
-        PersonNameHasKeywordsPredicate secondPredicate = new PersonNameHasKeywordsPredicate(secondPredicateKeywordList);
+        PersonNameHasKeywordsPredicate secondPredicate =
+                new PersonNameHasKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        PersonNameHasKeywordsPredicate firstPredicateCopy = new PersonNameHasKeywordsPredicate(firstPredicateKeywordList);
+        PersonNameHasKeywordsPredicate firstPredicateCopy =
+                new PersonNameHasKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +43,8 @@ public class PersonNameHasKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        PersonNameHasKeywordsPredicate predicate = new PersonNameHasKeywordsPredicate(Collections.singletonList("Alice"));
+        PersonNameHasKeywordsPredicate predicate =
+                new PersonNameHasKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords

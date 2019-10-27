@@ -26,8 +26,8 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.IntervieweeNameHasKeywordsPredicate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.PersonNameHasKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonNameHasKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**

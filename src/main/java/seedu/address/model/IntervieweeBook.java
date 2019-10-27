@@ -12,6 +12,9 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+/**
+ * Wraps all interviewee data at the address-book level. Duplicates are not allowed (by Person#isSamePerson).
+ */
 public class IntervieweeBook implements ListBasedBook<Interviewee> {
 
     private final UniquePersonList<Interviewee> interviewees;

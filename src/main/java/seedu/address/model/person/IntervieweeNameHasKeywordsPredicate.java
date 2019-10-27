@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 
+/**
+ * Represents a Predicate that checks for given keywords in an Interviewee.
+ */
 public class IntervieweeNameHasKeywordsPredicate implements Predicate<Interviewee> {
 
     private final List<String> keywords;

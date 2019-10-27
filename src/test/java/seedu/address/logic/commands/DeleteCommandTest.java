@@ -36,13 +36,13 @@ public class DeleteCommandTest {
     public void execute_validIntervieweeUnfilteredList_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
                 getTypicalIntervieweeBook(), new InterviewerBook());
-        Interviewee ALICE = TypicalPersons.ALICE_INTERVIEWEE;
+        Interviewee alice = TypicalPersons.ALICE_INTERVIEWEE;
         Role role = new Role("interviewee");
 
-        Interviewee intervieweeToDel = model.getInterviewee(ALICE.getName());
-        Person personToDel = model.getPerson(ALICE.getName().fullName);
+        Interviewee intervieweeToDel = model.getInterviewee(alice.getName());
+        Person personToDel = model.getPerson(alice.getName().fullName);
 
-        DeleteCommand deleteCommand = new DeleteCommand(ALICE.getName(), role);
+        DeleteCommand deleteCommand = new DeleteCommand(alice.getName(), role);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, intervieweeToDel);
 
@@ -58,9 +58,6 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidNameUnfilteredList_throwsCommandException() {
-
-//        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-//        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
                 getTypicalIntervieweeBook(), new InterviewerBook());
 
