@@ -52,7 +52,7 @@ public class Emails {
     /**
      * Gets a list of emails of specified type.
      *
-     * @param type the type of emails to getPerson.
+     * @param type the type of emails to getEntity.
      * @return null if the emails don't exist, the {@code Email} {@code List} otherwise.
      */
     public List<Email> getEmailsOfType(EmailType type) {

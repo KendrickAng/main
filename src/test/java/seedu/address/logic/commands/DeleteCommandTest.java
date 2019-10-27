@@ -39,7 +39,7 @@ public class DeleteCommandTest {
         Interviewee alice = TypicalPersons.ALICE_INTERVIEWEE;
         Role role = new Role("interviewee");
 
-        Interviewee intervieweeToDel = model.getInterviewee(alice.getName());
+        Interviewee intervieweeToDel = model.getInterviewee(alice.getName().fullName);
         Person personToDel = model.getPerson(alice.getName().fullName);
 
         DeleteCommand deleteCommand = new DeleteCommand(alice.getName(), role);
@@ -54,6 +54,12 @@ public class DeleteCommandTest {
         expectedModel.deletePerson(personToDel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validInterviewerUnfilteredList_success() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
+                getTypicalIntervieweeBook(), new InterviewerBook());
     }
 
     @Test

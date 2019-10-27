@@ -183,7 +183,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void addInterviewer(Interviewer interviewer) {
+        public void addInterviewerToSchedule(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
         }
 

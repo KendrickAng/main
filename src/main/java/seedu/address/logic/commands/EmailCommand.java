@@ -45,7 +45,7 @@ public class EmailCommand extends Command {
         requireNonNull(model);
         // TODO: Need to filter for Interviewees only
         List<Person> lastShownList = model.getFilteredPersonList();
-        // Interviewee intervieweeToEmail = new Interviewee.IntervieweeBuilder(lastShownList.getPerson(1)).build();
+        // Interviewee intervieweeToEmail = new Interviewee.IntervieweeBuilder(lastShownList.getEntity(1)).build();
         Interviewee intervieweeToEmail = null;
 
         for (Person person : lastShownList) {

@@ -53,6 +53,11 @@ public class Interviewee extends Person {
             this.tags = tags;
         }
 
+        // For testing purposes only
+        public IntervieweeBuilder(Person p) {
+            this(p.getName(), p.getPhone(), p.getTags());
+        }
+
         /**
          * Sets the optional {@code Emails} to create the Interviewee object.
          */

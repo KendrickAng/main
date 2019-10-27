@@ -111,7 +111,7 @@ public class CommandTestUtil {
      */
     public static void assertModelHasInterviewee(Model model, Interviewee interviewee) {
         try {
-            model.getInterviewee(interviewee.getName());
+            model.getInterviewee(interviewee.getName().fullName);
         } catch (NoSuchElementException e) {
             throw new AssertionError("Interviewee does not exist in model.", e);
         }
@@ -183,7 +183,7 @@ public class CommandTestUtil {
      */
     public static void showIntervieweeWithName(Model model, Name name) {
         try {
-            Interviewee i = model.getInterviewee(name);
+            Interviewee i = model.getInterviewee(name.fullName);
             final String[] splitName = i.getName().fullName.split("\\s+");
             model.updateFilteredIntervieweeList(new IntervieweeNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
         } catch (NoSuchElementException e) {

@@ -38,7 +38,7 @@ public class IntervieweeBook implements ListBasedBook<Interviewee> {
     }
 
     @Override
-    public Interviewee getPerson(Name name) throws PersonNotFoundException {
+    public Interviewee getEntity(Name name) throws PersonNotFoundException {
         requireNonNull(name);
         Optional<Interviewee> i = interviewees.asUnmodifiableObservableList().stream()
                 .filter(interviewee -> interviewee.getName().equals(name))
@@ -50,7 +50,7 @@ public class IntervieweeBook implements ListBasedBook<Interviewee> {
     }
 
     @Override
-    public void removePerson(Interviewee interviewee) throws PersonNotFoundException {
+    public void removeEntity(Interviewee interviewee) throws PersonNotFoundException {
         interviewees.remove(interviewee);
     }
 

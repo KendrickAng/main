@@ -75,6 +75,16 @@ public class ModelManager implements Model {
     //============ IntervieweeBook/InterviewerBook =========================================================
 
     @Override
+    public void addInterviewee(Interviewee interviewee) {
+        intervieweeBook.add(interviewee);
+    }
+
+    @Override
+    public void addInterviewer(Interviewer interviewer) {
+        interviewerBook.add(interviewer);
+    }
+
+    @Override
     public ListBasedBook<Interviewee> getIntervieweeBook() {
         return intervieweeBook;
     }
@@ -90,19 +100,40 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Interviewer> getFilteredInterviewerList() {
+        return filteredInterviewers;
+    }
+
+    @Override
     public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {
         requireNonNull(predicate);
         filteredInterviewees.setPredicate(predicate);
     }
 
     @Override
-    public Interviewee getInterviewee(Name intervieweeName) throws NoSuchElementException {
-        return intervieweeBook.getPerson(intervieweeName);
+    public void updateFilteredInterviewerList(Predicate<Interviewer> predicate) {
+        requireNonNull(predicate);
+        filteredInterviewers.setPredicate(predicate);
+    }
+
+    @Override
+    public Interviewee getInterviewee(String name) throws NoSuchElementException {
+        return intervieweeBook.getEntity(new Name(name));
+    }
+
+    @Override
+    public Interviewer getInterviewer(String name) throws NoSuchElementException {
+        return interviewerBook.getEntity(new Name(name));
     }
 
     @Override
     public void deleteInterviewee(Interviewee target) throws PersonNotFoundException {
-        intervieweeBook.removePerson(target);
+        intervieweeBook.removeEntity(target);
+    }
+
+    @Override
+    public void deleteInterviewer(Interviewer target) throws PersonNotFoundException {
+        interviewerBook.removeEntity(target);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -190,6 +221,19 @@ public class ModelManager implements Model {
         logger.fine("interviewee's list is updated");
     }
 
+    /**
+     * Adds the given interviewer to schedule(s) in which the interviewer's availability fall.
+     * If the interviewer's availability does not fall within any of the schedule, then the interviewer will not
+     * be added into any of the schedule.
+     */
+    @Override
+    public void addInterviewerToSchedule(Interviewer interviewer) {
+        interviewerBook.add(interviewer);
+        for (Schedule schedule : schedulesList) {
+            schedule.addInterviewer(interviewer);
+        }
+    }
+
     /** Returns the intervieweesList **/
     public List<Interviewee> getIntervieweesList() {
         return intervieweesList;
@@ -259,24 +303,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Adds the given interviewer to schedule(s) in which the interviewer's availability fall.
-     * If the interviewer's availability does not fall within any of the schedule, then the interviewer will not
-     * be added into any of the schedule.
-     */
-    @Override
-    public void addInterviewer(Interviewer interviewer) {
-        interviewerBook.add(interviewer);
-        for (Schedule schedule : schedulesList) {
-            schedule.addInterviewer(interviewer);
-        }
-    }
-
-    @Override
-    public void addInterviewee(Interviewee interviewee) {
-        intervieweeBook.add(interviewee);
-    }
-
-    /**
      * Returns the deep copy of the schedules list given.
      *
      * @param list the list of schedules to be copied.
@@ -330,7 +356,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         if (person instanceof Interviewer) {
-            addInterviewer((Interviewer) person);
+            addInterviewerToSchedule((Interviewer) person);
         }
         if (person instanceof Interviewee) {
             addInterviewee((Interviewee) person);

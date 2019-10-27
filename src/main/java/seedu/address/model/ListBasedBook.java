@@ -22,13 +22,13 @@ public interface ListBasedBook<T extends Person> {
      * Gets the person with specified name.
      * @throws NoSuchElementException if nobody with the name exists.
      */
-    T getPerson(Name name) throws PersonNotFoundException;
+    T getEntity(Name name) throws PersonNotFoundException;
 
     /**
      * Removes the person with specified name from the book. The person must exist in the book.
      * @throws PersonNotFoundException if the person does not exist in the book.
      */
-    void removePerson(T person) throws PersonNotFoundException;
+    void removeEntity(T person) throws PersonNotFoundException;
 
     /**
      * Returns an unmodifiable view of the entity list.
