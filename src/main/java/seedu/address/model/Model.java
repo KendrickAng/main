@@ -7,11 +7,14 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * The API of the Model component.
@@ -19,6 +22,41 @@ import seedu.address.model.person.Slot;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    // IntervieweeBook and InterviewerBook (Ken)
+    // ==================================================
+    /**
+     * Returns the interviewee book.
+     */
+    ListBasedBook<Interviewee> getIntervieweeBook();
+
+    /**
+     * Returns an unmodifiable list view of {@code Interviewee} backed by the internal list of {@code IntervieweeBook}.
+     */
+    ObservableList<Interviewee> getFilteredIntervieweeList();
+
+    /**
+     * Restricts the {@code ObservableList} of interviewee to display only what fulfills Predicate while leaving the
+     * original {@code IntervieweeBook} unmodified.
+     */
+    void updateFilteredIntervieweeList(Predicate<Interviewee> predicate);
+
+    /**
+     * Returns the interviewer book.
+     */
+    ListBasedBook<Interviewer> getInterviewerBook();
+
+    /**
+     * Returns an Interviewee given a name. The Interviewee must exist in the database, or an exception is thrown.
+     */
+    Interviewee getInterviewee(Name name) throws NoSuchElementException;
+
+    /**
+     * Deletes the given interviewee. The interviewee must exist in the interviewee book.
+     */
+    void deleteInterviewee(Interviewee target) throws PersonNotFoundException;
+
+    // ===================================================
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -63,13 +101,6 @@ public interface Model {
 
     /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
     List<List<String>> getTitlesLists();
-
-    /**
-     * Returns an Interviewee given the intervieweeName.
-     * The Interviewee must exist in the database.
-     * @throws NoSuchElementException If the Interviewee does not exist in the database.
-     */
-    Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException;
 
     /**
      * Emails the given Interviewee.
@@ -125,7 +156,7 @@ public interface Model {
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePerson(Person target) throws PersonNotFoundException;
 
     /**
      * Adds the given person.

@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.IntervieweeBook;
+import seedu.address.model.InterviewerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,14 +26,16 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
+                new IntervieweeBook(), new InterviewerBook());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>(),
+                model.getIntervieweeBook(), model.getInterviewerBook());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,

@@ -7,9 +7,11 @@ import java.util.NoSuchElementException;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's name and role from the address book.
@@ -37,14 +39,27 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Person personToDelete;
+        String deleted;
         try {
-            personToDelete = model.getPerson(targetName.fullName);
-        } catch (NoSuchElementException e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_NAME + ": " + targetName);
+            if (targetRole.value.equals("interviewee")) {
+                Interviewee i = model.getInterviewee(targetName);
+                model.deleteInterviewee(i);
+                // TODO: remove this later on (ken)
+                Person p = model.getPerson(targetName.fullName);
+                model.deletePerson(p);
+                deleted = i.toString();
+            } else if (targetRole.value.equals("interviewer")) {
+                // Interviewer personToDelete = model.getInterviewer(targetName);
+                Person p = model.getPerson(targetName.fullName);
+                model.deletePerson(p);
+                deleted = p.toString();
+            } else {
+                throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
+            }
+        } catch (NoSuchElementException | PersonNotFoundException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_NAME);
         }
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deleted));
     }
 
     @Override

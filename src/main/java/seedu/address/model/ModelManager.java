@@ -19,12 +19,12 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Messages;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the schedule table data.
@@ -39,15 +39,17 @@ public class ModelManager implements Model {
     private final List<Schedule> schedulesList;
     private List<Interviewee> intervieweesList;
 
-    private final IntervieweeBook intervieweeBook; // for now, continue using addressbook as usual.
+    private final IntervieweeBook intervieweeBook; // functionality not stable, refrain from using
     private final InterviewerBook interviewerBook;
+    private final FilteredList<Interviewee> filteredInterviewees; // if we want to display all interviewees on UI
+    private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all inteviewers on UI
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
                         List<Schedule> schedulesList,
-                        IntervieweeBook intervieweeBook, InterviewerBook interviewerBook) {
+                        ListBasedBook<Interviewee> intervieweeBook, ListBasedBook<Interviewer> interviewerBook) {
         super();
         requireAllNonNull(addressBook, userPrefs, schedulesList);
 
@@ -60,12 +62,47 @@ public class ModelManager implements Model {
         this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        this.intervieweeBook = intervieweeBook;
-        this.interviewerBook = interviewerBook;
+        this.intervieweeBook = new IntervieweeBook(intervieweeBook);
+        this.interviewerBook = new InterviewerBook(interviewerBook);
+        filteredInterviewees = new FilteredList<>(this.intervieweeBook.getObservableList());
+        filteredInterviewers = new FilteredList<>(this.interviewerBook.getObservableList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new LinkedList<>(), new IntervieweeBook(), new InterviewerBook());
+    }
+
+    //============ IntervieweeBook/InterviewerBook =========================================================
+
+    @Override
+    public ListBasedBook<Interviewee> getIntervieweeBook() {
+        return intervieweeBook;
+    }
+
+    @Override
+    public ListBasedBook<Interviewer> getInterviewerBook() {
+        return interviewerBook;
+    }
+
+    @Override
+    public ObservableList<Interviewee> getFilteredIntervieweeList() {
+        return filteredInterviewees;
+    }
+
+    @Override
+    public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {
+        requireNonNull(predicate);
+        filteredInterviewees.setPredicate(predicate);
+    }
+
+    @Override
+    public Interviewee getInterviewee(Name intervieweeName) throws NoSuchElementException {
+        return intervieweeBook.getPerson(intervieweeName);
+    }
+
+    @Override
+    public void deleteInterviewee(Interviewee target) throws PersonNotFoundException {
+        intervieweeBook.removePerson(target);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -144,8 +181,6 @@ public class ModelManager implements Model {
         return titlesLists;
     }
 
-    //============ Interviewee/Interviewer manipulation =========================================================
-
     /**
      * Sets interviewee's data.
      * @param list list of interviewees
@@ -158,17 +193,6 @@ public class ModelManager implements Model {
     /** Returns the intervieweesList **/
     public List<Interviewee> getIntervieweesList() {
         return intervieweesList;
-    }
-
-    @Override
-    public Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException {
-        Person person = getPerson(intervieweeName);
-
-        if (person instanceof Interviewee) {
-            return (Interviewee) person;
-        } else {
-            throw new NoSuchElementException(Messages.MESSAGE_INVALID_PERSON_NAME);
-        }
     }
 
     /**
@@ -299,7 +323,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
     }
 
@@ -360,6 +384,10 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
             && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+            && filteredPersons.equals(other.filteredPersons)
+            && intervieweeBook.equals(other.intervieweeBook)
+            && interviewerBook.equals(other.interviewerBook)
+            && filteredInterviewees.equals(other.filteredInterviewees)
+            && filteredInterviewers.equals(other.filteredInterviewers);
     }
 }
