@@ -22,49 +22,49 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
-    // IntervieweeBook and InterviewerBook (Ken)
+    // IntervieweeList and InterviewerList (Ken)
     // ========================================================================================
 
 
     /**
-     * Adds an interviewer to the model's {@code InterviewerBook}. Must be unique.
+     * Adds an interviewer to the model's {@code InterviewerList}. Must be unique.
      */
     void addInterviewer(Interviewer interviewer);
 
     /**
-     * Adds an interviewee to the model's {@code IntervieweeBook}. Must be unique.
+     * Adds an interviewee to the model's {@code IntervieweeList}. Must be unique.
      */
     void addInterviewee(Interviewee interviewee);
 
     /**
      * Returns the interviewee book.
      */
-    ListBasedBook<Interviewee> getIntervieweeBook();
+    ReadAndWriteList<Interviewee> getIntervieweeList();
 
     /**
      * Returns the interviewer book.
      */
-    ListBasedBook<Interviewer> getInterviewerBook();
+    ReadAndWriteList<Interviewer> getInterviewerList();
 
     /**
-     * Returns an unmodifiable list view of {@code Interviewee} backed by the internal list of {@code IntervieweeBook}.
+     * Returns an unmodifiable list view of {@code Interviewee} backed by the internal list of {@code IntervieweeList}.
      */
     ObservableList<Interviewee> getFilteredIntervieweeList();
 
     /**
-     * Returns an unmodifiable list view of {@code Interviewer} backed by the internal list of {@code InterviewerBook}.
+     * Returns an unmodifiable list view of {@code Interviewer} backed by the internal list of {@code InterviewerList}.
      */
     ObservableList<Interviewer> getFilteredInterviewerList();
 
     /**
      * Restricts the {@code ObservableList} of interviewee to display only what returns true on Predicate while
-     * leaving the original {@code IntervieweeBook} unmodified.
+     * leaving the original {@code IntervieweeList} unmodified.
      */
     void updateFilteredIntervieweeList(Predicate<Interviewee> predicate);
 
     /**
      * Restricts the {@code ObservableList} of interviewer to display only what returns true on Predicate while
-     * leaving the original {@code InterviewerBook} unmodified.
+     * leaving the original {@code InterviewerList} unmodified.
      */
     void updateFilteredInterviewerList(Predicate<Interviewer> predicate);
 
@@ -79,12 +79,12 @@ public interface Model {
     Interviewer getInterviewer(String name) throws NoSuchElementException;
 
     /**
-     * Deletes the given interviewee from the {@code IntervieweeBook}. The interviewee must exist in the interviewee book.
+     * Deletes the given interviewee from the {@code IntervieweeList}. The interviewee must exist in the interviewee book.
      */
     void deleteInterviewee(Interviewee target) throws PersonNotFoundException;
 
     /**
-     * Deletes the given interviewer from the {@code InterviewerBook}. The interviewer must exist in the book.
+     * Deletes the given interviewer from the {@code InterviewerList}. The interviewer must exist in the book.
      */
     void deleteInterviewer(Interviewer target) throws PersonNotFoundException;
 
@@ -125,7 +125,7 @@ public interface Model {
 
     /**
      * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
-     * and returns true. Otherwise, the method will not add the interviewer and return false.
+     * and returns true. Otherwise, the method will not addEntity the interviewer and return false.
      */
     void addInterviewerToSchedule(Interviewer interviewer);
 

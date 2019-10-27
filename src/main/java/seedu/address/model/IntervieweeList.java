@@ -15,17 +15,17 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * Wraps all interviewee data at the address-book level. Duplicates are not allowed (by Person#isSamePerson).
  */
-public class IntervieweeBook implements ListBasedBook<Interviewee> {
+public class IntervieweeList implements ReadAndWriteList<Interviewee> {
 
     private final UniquePersonList<Interviewee> interviewees;
 
-    public IntervieweeBook() {
+    public IntervieweeList() {
         this.interviewees = new UniquePersonList<>();
     }
 
-    public IntervieweeBook(ListBasedBook<Interviewee> book) {
+    public IntervieweeList(ReadOnlyList<Interviewee> book) {
         this();
-        resetDataWithBook(book);
+        resetData(book);
     }
 
     /**
@@ -33,7 +33,7 @@ public class IntervieweeBook implements ListBasedBook<Interviewee> {
      * @throws DuplicatePersonException if the interviewee already exists in the book.
      */
     @Override
-    public void add(Interviewee interviewee) throws DuplicatePersonException {
+    public void addEntity(Interviewee interviewee) throws DuplicatePersonException {
         interviewees.add(interviewee);
     }
 
@@ -62,7 +62,7 @@ public class IntervieweeBook implements ListBasedBook<Interviewee> {
     /**
      * Resets the underlying {@code UniquePersonList<Interviewee>} with that of the {@code book}.
      */
-    private void resetDataWithBook(ListBasedBook<Interviewee> book) {
+    private void resetData(ReadOnlyList<Interviewee> book) {
         requireNonNull(book);
         this.interviewees.setPersons(book.getObservableList());
     }
@@ -75,8 +75,8 @@ public class IntervieweeBook implements ListBasedBook<Interviewee> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof IntervieweeBook// instanceof handles nulls
-                && interviewees.equals(((IntervieweeBook) other).interviewees));
+                || (other instanceof IntervieweeList// instanceof handles nulls
+                && interviewees.equals(((IntervieweeList) other).interviewees));
     }
 
     @Override

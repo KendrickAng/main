@@ -29,7 +29,7 @@ public class Emails {
      */
     public Emails addPersonalEmail(Email email) {
         if (!emails.containsKey(PERSONAL)) {
-            // list doesn't exist, create and add
+            // list doesn't exist, create and addEntity
             emails.put(PERSONAL, new ArrayList<>());
         }
         emails.get(PERSONAL).add(email);
@@ -42,7 +42,7 @@ public class Emails {
      */
     public Emails addNusEmail(Email email) {
         if (!emails.containsKey(NUS)) {
-            // list doesn't exist, create and add
+            // list doesn't exist, create and addEntity
             emails.put(NUS, new ArrayList<>());
         }
         emails.get(NUS).add(email);

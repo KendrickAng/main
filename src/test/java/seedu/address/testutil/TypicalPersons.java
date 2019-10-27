@@ -81,7 +81,20 @@ public class TypicalPersons {
             .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
 
     // Typical Interviewers
-    public static final Interviewee ALICE_INTERVIEWER = new InterviewerBuilder()
+    public static final Interviewer ALICE_INTERVIEWER = new InterviewerBuilder(ALICE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer BENSON_INTERVIEWER = new InterviewerBuilder(BENSON).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer CARL_INTERVIEWER = new InterviewerBuilder(CARL).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer DANIEL_INTERVIEWER = new InterviewerBuilder(DANIEL).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer ELLE_INTERVIEWER = new InterviewerBuilder(ELLE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer FIONA_INTERVIEWER = new InterviewerBuilder(FIONA).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer GEORGE_INTERVIEWER = new InterviewerBuilder(GEORGE).withDepartment("Logistics")
+            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").build();
@@ -138,10 +151,15 @@ public class TypicalPersons {
     }
 
     public static InterviewerBook getTypicalInterviewerBook() {
-
+        InterviewerBook ib = new InterviewerBook();
+        for (Interviewer i: getTypicalInterviewers()) {
+            ib.add(i);
+        }
+        return ib;
     }
 
     public static List<Interviewer> getTypicalInterviewers() {
-        return new ArrayList<>()
+        return new ArrayList<>(Arrays.asList(ALICE_INTERVIEWER, BENSON_INTERVIEWER, CARL_INTERVIEWER,
+                DANIEL_INTERVIEWER, ELLE_INTERVIEWER, FIONA_INTERVIEWER, GEORGE_INTERVIEWER));
     }
 }

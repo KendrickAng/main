@@ -18,14 +18,17 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
-import seedu.address.model.IntervieweeBook;
-import seedu.address.model.InterviewerBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -97,8 +100,8 @@ public class MainApp extends Application {
         // For now ModelManager is always initialised with sample schedulesList first
         List<Schedule> schedules = SampleDataUtil.getSampleSchedulesList();
         // TODO: update with storage#getInterviewees, storage#getInterviewers once done (ken)
-        IntervieweeBook initialInterviewees = new IntervieweeBook();
-        InterviewerBook initialInterviewers = new InterviewerBook();
+        ReadOnlyList<Interviewee> initialInterviewees = new IntervieweeList();
+        ReadOnlyList<Interviewer> initialInterviewers = new InterviewerList();
 
         return new ModelManager(initialData, userPrefs, schedules, initialInterviewees, initialInterviewers);
     }

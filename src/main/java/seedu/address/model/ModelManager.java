@@ -39,8 +39,8 @@ public class ModelManager implements Model {
     private final List<Schedule> schedulesList;
     private List<Interviewee> intervieweesList;
 
-    private final IntervieweeBook intervieweeBook; // functionality not stable, refrain from using
-    private final InterviewerBook interviewerBook;
+    private final IntervieweeList intervieweeList; // functionality not stable, refrain from using
+    private final InterviewerList interviewerList;
     private final FilteredList<Interviewee> filteredInterviewees; // if we want to display all interviewees on UI
     private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all inteviewers on UI
 
@@ -49,7 +49,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
                         List<Schedule> schedulesList,
-                        ListBasedBook<Interviewee> intervieweeBook, ListBasedBook<Interviewer> interviewerBook) {
+                        ReadOnlyList<Interviewee> intervieweeBook, ReadOnlyList<Interviewer> interviewerBook) {
         super();
         requireAllNonNull(addressBook, userPrefs, schedulesList);
 
@@ -62,36 +62,36 @@ public class ModelManager implements Model {
         this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        this.intervieweeBook = new IntervieweeBook(intervieweeBook);
-        this.interviewerBook = new InterviewerBook(interviewerBook);
-        filteredInterviewees = new FilteredList<>(this.intervieweeBook.getObservableList());
-        filteredInterviewers = new FilteredList<>(this.interviewerBook.getObservableList());
+        this.intervieweeList = new IntervieweeList(intervieweeBook);
+        this.interviewerList = new InterviewerList(interviewerBook);
+        filteredInterviewees = new FilteredList<>(this.intervieweeList.getObservableList());
+        filteredInterviewers = new FilteredList<>(this.interviewerList.getObservableList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new LinkedList<>(), new IntervieweeBook(), new InterviewerBook());
+        this(new AddressBook(), new UserPrefs(), new LinkedList<>(), new IntervieweeList(), new InterviewerList());
     }
 
-    //============ IntervieweeBook/InterviewerBook =========================================================
+    //============ IntervieweeList/InterviewerList =========================================================
 
     @Override
     public void addInterviewee(Interviewee interviewee) {
-        intervieweeBook.add(interviewee);
+        intervieweeList.addEntity(interviewee);
     }
 
     @Override
     public void addInterviewer(Interviewer interviewer) {
-        interviewerBook.add(interviewer);
+        interviewerList.addEntity(interviewer);
     }
 
     @Override
-    public ListBasedBook<Interviewee> getIntervieweeBook() {
-        return intervieweeBook;
+    public ReadAndWriteList<Interviewee> getIntervieweeList() {
+        return intervieweeList;
     }
 
     @Override
-    public ListBasedBook<Interviewer> getInterviewerBook() {
-        return interviewerBook;
+    public ReadAndWriteList<Interviewer> getInterviewerList() {
+        return interviewerList;
     }
 
     @Override
@@ -118,22 +118,22 @@ public class ModelManager implements Model {
 
     @Override
     public Interviewee getInterviewee(String name) throws NoSuchElementException {
-        return intervieweeBook.getEntity(new Name(name));
+        return intervieweeList.getEntity(new Name(name));
     }
 
     @Override
     public Interviewer getInterviewer(String name) throws NoSuchElementException {
-        return interviewerBook.getEntity(new Name(name));
+        return interviewerList.getEntity(new Name(name));
     }
 
     @Override
     public void deleteInterviewee(Interviewee target) throws PersonNotFoundException {
-        intervieweeBook.removeEntity(target);
+        intervieweeList.removeEntity(target);
     }
 
     @Override
     public void deleteInterviewer(Interviewer target) throws PersonNotFoundException {
-        interviewerBook.removeEntity(target);
+        interviewerList.removeEntity(target);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -228,7 +228,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void addInterviewerToSchedule(Interviewer interviewer) {
-        interviewerBook.add(interviewer);
+        interviewerList.addEntity(interviewer);
         for (Schedule schedule : schedulesList) {
             schedule.addInterviewer(interviewer);
         }
@@ -411,8 +411,8 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
             && userPrefs.equals(other.userPrefs)
             && filteredPersons.equals(other.filteredPersons)
-            && intervieweeBook.equals(other.intervieweeBook)
-            && interviewerBook.equals(other.interviewerBook)
+            && intervieweeList.equals(other.intervieweeList)
+            && interviewerList.equals(other.interviewerList)
             && filteredInterviewees.equals(other.filteredInterviewees)
             && filteredInterviewers.equals(other.filteredInterviewers);
     }

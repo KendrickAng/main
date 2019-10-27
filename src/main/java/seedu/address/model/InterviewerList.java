@@ -16,17 +16,17 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * Wraps all interviewee data in the model.
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class InterviewerBook implements ListBasedBook<Interviewer> {
+public class InterviewerList implements ReadAndWriteList<Interviewer> {
 
     private final UniquePersonList<Interviewer> interviewers;
 
-    public InterviewerBook() {
+    public InterviewerList() {
         this.interviewers = new UniquePersonList<>();
     }
 
-    public InterviewerBook(ListBasedBook<Interviewer> book) {
+    public InterviewerList(ReadOnlyList<Interviewer> book) {
         this();
-        resetDataWithBook(book);
+        resetData(book);
     }
 
     /**
@@ -34,7 +34,7 @@ public class InterviewerBook implements ListBasedBook<Interviewer> {
      * @throws DuplicatePersonException if the interviewer already exists in the book.
      */
     @Override
-    public void add(Interviewer interviewer) throws DuplicatePersonException {
+    public void addEntity(Interviewer interviewer) throws DuplicatePersonException {
         interviewers.add(interviewer);
     }
 
@@ -63,7 +63,7 @@ public class InterviewerBook implements ListBasedBook<Interviewer> {
     /**
      * Resets the underlying {@code UniquePersonList<Interviewer>} with that of the {@code book}.
      */
-    private void resetDataWithBook(ListBasedBook<Interviewer> book) {
+    private void resetData(ReadOnlyList<Interviewer> book) {
         requireNonNull(book);
         this.interviewers.setPersons(book.getObservableList());
     }
@@ -76,8 +76,8 @@ public class InterviewerBook implements ListBasedBook<Interviewer> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InterviewerBook// instanceof handles nulls
-                && interviewers.equals(((InterviewerBook) other).interviewers));
+                || (other instanceof InterviewerList// instanceof handles nulls
+                && interviewers.equals(((InterviewerList) other).interviewers));
     }
 
     @Override

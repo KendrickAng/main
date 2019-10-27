@@ -74,7 +74,7 @@ public class IntervieweeBuilder extends PersonBuilder {
      * Sets the stud year of the {@code Interviewee} that we are building.
      * @throws ParseException if input is invalid.
      */
-    public IntervieweeBuilder withYearOfStudy(String yearOfStudy) throws ParseException {
+    public IntervieweeBuilder withYearOfStudy(String yearOfStudy) {
         try{
             this.yearOfStudy = ParserUtil.parseYearOfStudy(yearOfStudy);
         } catch (ParseException e) {
@@ -87,7 +87,7 @@ public class IntervieweeBuilder extends PersonBuilder {
      * Sets the {@code Department}s of the {@code Interviewee} that we are building.
      * @throws ParseException if input is invalid.
      */
-    public IntervieweeBuilder withDepartmentChoices(String... departments) throws ParseException {
+    public IntervieweeBuilder withDepartmentChoices(String... departments) {
         try {
             this.departmentChoices = ParserUtil.parseDepartments(Arrays.asList(departments));
         } catch (ParseException e) {

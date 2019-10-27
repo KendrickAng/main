@@ -17,6 +17,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -27,9 +28,9 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -98,8 +99,28 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Interviewer> getFilteredInterviewerList() {
+            return null;
+        }
+
+        @Override
         public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {
 
+        }
+
+        @Override
+        public void updateFilteredInterviewerList(Predicate<Interviewer> predicate) {
+
+        }
+
+        @Override
+        public Interviewee getInterviewee(String name) throws NoSuchElementException {
+            return null;
+        }
+
+        @Override
+        public Interviewer getInterviewer(String name) throws NoSuchElementException {
+            return null;
         }
 
         @Override
@@ -108,13 +129,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public Interviewee getInterviewee(Name name) throws NoSuchElementException {
+        public void deleteInterviewee(Interviewee target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteInterviewee(Interviewee target) {
-            throw new AssertionError("This method should not be called.");
+        public void deleteInterviewer(Interviewer target) throws PersonNotFoundException {
+
         }
 
         @Override
@@ -184,6 +205,11 @@ public class AddCommandTest {
         }
         @Override
         public void addInterviewerToSchedule(Interviewer interviewer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addInterviewer(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
         }
 
