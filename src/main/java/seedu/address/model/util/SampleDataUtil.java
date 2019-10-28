@@ -12,7 +12,7 @@ import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code IntervieweeList} and {@code IntervieweeList} with sample data.
  */
 public class SampleDataUtil {
     private static String[][] sampleFilledTable =

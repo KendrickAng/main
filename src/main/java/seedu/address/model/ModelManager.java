@@ -123,6 +123,20 @@ public class ModelManager implements Model {
         interviewerList.addEntity(interviewer);
     }
 
+    /**
+     * Gets the model's underlying IntervieweeList. For testing purposes only.
+     */
+    public IntervieweeList getIntervieweeList() {
+        return this.intervieweeList;
+    }
+
+    /**
+     * Gets the model's underlying InterviewerList. For testing purposes only.
+     */
+    public InterviewerList getInterviewerList() {
+        return this.interviewerList;
+    }
+
     @Override
     public ReadAndWriteList<Interviewee> getMutableIntervieweeList() {
         return intervieweeList;

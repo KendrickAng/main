@@ -2,8 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
+import seedu.address.model.person.IntervieweeNameHasKeywordsPredicate;
+import seedu.address.model.person.InterviewerNameHasKeywordsPredicate;
 import seedu.address.model.person.PersonNameHasKeywordsPredicate;
 
 /**
@@ -28,9 +32,12 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        List<String> keywords = predicate.getKeywords();
+        model.updateFilteredIntervieweeList(new IntervieweeNameHasKeywordsPredicate(keywords));
+        model.updateFilteredInterviewerList(new InterviewerNameHasKeywordsPredicate(keywords));
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
+                        model.getFilteredIntervieweeList().size() + model.getFilteredInterviewerList().size()));
     }
 
     @Override

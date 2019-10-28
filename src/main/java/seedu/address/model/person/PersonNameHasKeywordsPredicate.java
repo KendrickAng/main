@@ -21,11 +21,14 @@ public class PersonNameHasKeywordsPredicate implements Predicate<Person> {
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
     }
 
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PersonNameHasKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((PersonNameHasKeywordsPredicate) other).keywords)); // state check
     }
-
 }

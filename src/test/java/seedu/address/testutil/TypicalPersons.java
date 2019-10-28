@@ -23,9 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.IntervieweeBook;
-import seedu.address.model.InterviewerBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
@@ -118,29 +117,18 @@ public class TypicalPersons {
 
     private TypicalPersons() {} // prevents instantiation
 
-    /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
-        }
-        return ab;
-    }
-
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
     /**
-     * Returns an {@code IntervieweeBook} with all the typical interviewees.
+     * Returns an {@code IntervieweeList} with all the typical interviewees.
      * @return
      */
-    public static IntervieweeBook getTypicalIntervieweeBook() {
-        IntervieweeBook ib = new IntervieweeBook();
+    public static IntervieweeList getTypicalIntervieweeBook() {
+        IntervieweeList ib = new IntervieweeList();
         for (Interviewee i: getTypicalInterviewees()) {
-            ib.add(i);
+            ib.addEntity(i);
         }
         return ib;
     }
@@ -150,10 +138,10 @@ public class TypicalPersons {
                 DANIEL_INTERVIEWEE, ELLE_INTERVIEWEE, FIONA_INTERVIEWEE, GEORGE_INTERVIEWEE));
     }
 
-    public static InterviewerBook getTypicalInterviewerBook() {
-        InterviewerBook ib = new InterviewerBook();
+    public static InterviewerList getTypicalInterviewerBook() {
+        InterviewerList ib = new InterviewerList();
         for (Interviewer i: getTypicalInterviewers()) {
-            ib.add(i);
+            ib.addEntity(i);
         }
         return ib;
     }

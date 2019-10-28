@@ -76,6 +76,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Interviewee> getUnfilteredIntervieweeList() {
+        return model.getUnfilteredIntervieweeList();
+    }
+
+    @Override
+    public ObservableList<Interviewer> getUnfilteredInterviewerList() {
+        return model.getUnfilteredInterviewerList();
+    }
+
+    @Override
     public ObservableList<Interviewee> getFilteredIntervieweeList() {
         return model.getFilteredIntervieweeList();
     }
