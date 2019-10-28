@@ -12,19 +12,32 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public interface ReadAndWriteList<T extends Person> extends ReadOnlyList<T> {
     /**
-     * Adds a person to the book. This book will not contain duplicates.
+     * Adds an entity to the book. This book will not contain duplicates.
      */
     void addEntity(T person);
 
     /**
-     * Gets the person with specified name.
+     * Edits the target entity with details from the {@code editedTarget}.
+     * @throws PersonNotFoundException if the target does not exist in the list.
+     */
+    void setEntity(T target, T editedTarget) throws PersonNotFoundException;
+
+    /**
+     * Removes the entity with specified name from the list. The entity must exist in the list.
+     * @throws PersonNotFoundException if the person does not exist in the list.
+     */
+    void removeEntity(T person) throws PersonNotFoundException;
+
+    /**
+     * Returns true if the list contains {@code targe}, false otherwise.
+     */
+    boolean hasEntity(T target);
+
+    /**
+     * Gets the entity with specified name.
      * @throws NoSuchElementException if nobody with the name exists.
      */
     T getEntity(Name name) throws PersonNotFoundException;
 
-    /**
-     * Removes the person with specified name from the book. The person must exist in the book.
-     * @throws PersonNotFoundException if the person does not exist in the book.
-     */
-    void removeEntity(T person) throws PersonNotFoundException;
+
 }

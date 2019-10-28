@@ -36,6 +36,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private IntervieweeListPanel intervieweeListPanel;
+    private InterviewerListPanel interviewerListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ScheduleViewPanel scheduleViewPanel;
@@ -65,10 +67,16 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane schedulesPlaceholder;
 
     @FXML
-    private Tab addressbookTab;
+    private Tab intervieweeListTab;
 
     @FXML
-    private AnchorPane addressbookPlaceholder;
+    private AnchorPane intervieweeListPlaceholder;
+
+    @FXML
+    private Tab interviewerListTab;
+
+    @FXML
+    private AnchorPane interviewerListPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -128,15 +136,18 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
-        // schedulePanelPlaceholder.getChildren().addEntity(scheduleViewPanel.getRoot());
+        // schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
 
-        // test code
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        schedulePanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        addressbookPlaceholder.getChildren().add(personListPanel.getRoot());
+        // ========================================test code for debug purposes
+        // personListPanel = new PersonListPanel(logic.getFilteredIntervieweeList());
+        intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeList());
+        intervieweeListPlaceholder.getChildren().add(intervieweeListPanel.getRoot());
+
+        interviewerListPanel = new InterviewerListPanel(logic.getFilteredInterviewerList());
+        interviewerListPlaceholder.getChildren().add(interviewerListPanel.getRoot());
 
         schedulesPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
-        // end of test code
+        // ========================================end of test code
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

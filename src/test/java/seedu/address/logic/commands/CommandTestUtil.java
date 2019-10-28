@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -19,15 +18,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.IntervieweeNameHasKeywordsPredicate;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonNameHasKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -148,35 +147,29 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the interviewee/interviewer lists, filtered interviewee/interviewer list and selected person in
+     * {@code actualModel} remain unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        IntervieweeList expectedIntervieweeList = new IntervieweeList(actualModel.getMutableIntervieweeList());
+        InterviewerList expectedInterviewerList = new InterviewerList(actualModel.getMutableInterviewerList());
+
+        List<Interviewee> expectedFilteredIntervieweeList = new ArrayList<>(actualModel.getFilteredIntervieweeList());
+        List<Interviewer> expectedFilteredInterviewerList = new ArrayList<>(actualModel.getFilteredInterviewerList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedIntervieweeList, ((ModelManager) actualModel).getIntervieweeList());
+        assertEquals(expectedInterviewerList, ((ModelManager) actualModel).getInterviewerList());
+
+        assertEquals(expectedFilteredIntervieweeList, actualModel.getMutableIntervieweeList());
+        assertEquals(expectedFilteredInterviewerList, actualModel.getMutableInterviewerList());
     }
 
     // ===================================================================================================
     // CUSTOM CONVENIENCE METHODS FOR TESTING PURPOSES ONLY
     // ===================================================================================================
-    /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
-
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new PersonNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredPersonList().size());
-    }
 
     /**
      * Updates {@code model}'s filtered interviewee list to show only the interviewee with {@code name}.

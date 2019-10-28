@@ -1,7 +1,9 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -39,6 +41,13 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
     }
 
     @Override
+    public void setEntity(Interviewer target, Interviewer editedTarget) throws PersonNotFoundException {
+        requireAllNonNull(target, editedTarget);
+        // TODO: implementation
+        throw new RuntimeException("method not implemented yet");
+    }
+
+    @Override
     public Interviewer getEntity(Name name) throws PersonNotFoundException {
         requireNonNull(name);
         Optional<Interviewer> i = interviewers.asUnmodifiableObservableList().stream()
@@ -56,8 +65,21 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
     }
 
     @Override
-    public ObservableList<Interviewer> getObservableList() {
+    public boolean hasEntity(Interviewer target) {
+        return interviewers.contains(target);
+    }
+
+    @Override
+    public ObservableList<Interviewer> getEntityList() {
         return interviewers.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Replaces the contents of the interviewer list with {@code interviewers}.
+     * {@code interviewers} must not contain duplicate interviewers.
+     */
+    public void setInterviewerList(List<Interviewer> interviewers) {
+        this.interviewers.setPersons(interviewers);
     }
 
     /**
@@ -65,7 +87,7 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
      */
     private void resetData(ReadOnlyList<Interviewer> book) {
         requireNonNull(book);
-        this.interviewers.setPersons(book.getObservableList());
+        this.interviewers.setPersons(book.getEntityList());
     }
 
     @Override

@@ -65,9 +65,19 @@
                     </AnchorPane>
                   </content>
                 </Tab>
-                <Tab fx:id="addressbookTab" styleClass="label" text="AddressBook">
+                <Tab fx:id="intervieweeListTab" styleClass="label" text="Interviewees">
                   <content>
-                    <AnchorPane fx:id="addressbookPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                    <AnchorPane fx:id="intervieweeListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                      <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                      </stylesheets>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="interviewerListTab" styleClass="label" text="Interviewees">
+                  <content>
+                    <AnchorPane fx:id="interviewerListPlaceholder" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                       <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />

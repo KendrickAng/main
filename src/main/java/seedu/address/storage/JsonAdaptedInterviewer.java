@@ -14,7 +14,6 @@ import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Slot;
 import seedu.address.model.tag.Tag;
@@ -66,7 +65,7 @@ public class JsonAdaptedInterviewer extends JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted interviewer.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Interviewer toModelType() throws IllegalValueException {
         final String name = getName();
         final String phone = getPhone();
         final List<Tag> personTags = new ArrayList<>();

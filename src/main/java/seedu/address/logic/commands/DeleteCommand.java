@@ -10,7 +10,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -45,16 +44,10 @@ public class DeleteCommand extends Command {
                 Interviewee i = model.getInterviewee(targetName.fullName);
                 model.deleteInterviewee(i);
                 deleted = i.toString();
-                // TODO: for backward compatibility, remove this once addressbook is removed (ken)
-                Person p = model.getPerson(targetName.fullName);
-                model.deletePerson(p);
             } else if (targetRole.value.equals("interviewer")) {
                 Interviewer i = model.getInterviewer(targetName.fullName);
                 model.deleteInterviewer(i);
                 deleted = i.toString();
-                // TODO: for backward compatibility, remove this once addressbook is removed (ken)
-                Person p = model.getPerson(targetName.fullName);
-                model.deletePerson(p);
             } else {
                 throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
             }
