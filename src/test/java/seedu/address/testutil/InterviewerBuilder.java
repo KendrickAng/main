@@ -13,6 +13,9 @@ import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
 
+/**
+ * A utility class to help with building Interviewer objects from string input.
+ */
 public class InterviewerBuilder extends PersonBuilder {
 
     private static final String DEFAULT_DEPARTMENT = "Logistics";
@@ -45,6 +48,9 @@ public class InterviewerBuilder extends PersonBuilder {
         availabilities = i.getAvailabilities();
     }
 
+    /**
+     * Sets the {@code Department} of the {@code Interviewer} that we are building.
+     */
     public InterviewerBuilder withDepartment(String department) {
         try {
             this.department = ParserUtil.parseDepartment(department);
@@ -54,6 +60,9 @@ public class InterviewerBuilder extends PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code Interviewer} that we are building.
+     */
     public InterviewerBuilder withEmail(String email) {
         try {
             this.email = ParserUtil.parseEmail(email);
@@ -63,6 +72,9 @@ public class InterviewerBuilder extends PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Slot}s of the {@code Interviewer} that we are building.
+     */
     public InterviewerBuilder withAvailabilities(String... availabilities) {
         try {
             this.availabilities = ParserUtil.parseSlots(Arrays.asList(availabilities));

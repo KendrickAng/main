@@ -3,7 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -41,10 +41,10 @@ public class ModelManager implements Model {
     private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all inteviewers on UI
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given intervieweeList, interviewerList, userPrefs and schedulesList.
      */
-    public ModelManager(ReadOnlyList<Interviewee> intervieweeList, ReadOnlyList<Interviewer> interviewerList, ReadOnlyUserPrefs userPrefs,
-                        List<Schedule> schedulesList) {
+    public ModelManager(ReadOnlyList<Interviewee> intervieweeList, ReadOnlyList<Interviewer> interviewerList,
+                        ReadOnlyUserPrefs userPrefs, List<Schedule> schedulesList) {
         super();
         requireAllNonNull(intervieweeList, userPrefs, schedulesList);
 
@@ -166,7 +166,8 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Interviewer> getUnfilteredInterviewerList() {
         updateFilteredInterviewerList(PREDICATE_SHOW_ALL_INTERVIEWERS);
-        return getFilteredInterviewerList();    }
+        return getFilteredInterviewerList();
+    }
 
     @Override
     public void updateFilteredIntervieweeList(Predicate<Interviewee> predicate) {

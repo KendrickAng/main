@@ -75,7 +75,7 @@ public class IntervieweeBuilder extends PersonBuilder {
      * @throws ParseException if input is invalid.
      */
     public IntervieweeBuilder withYearOfStudy(String yearOfStudy) {
-        try{
+        try {
             this.yearOfStudy = ParserUtil.parseYearOfStudy(yearOfStudy);
         } catch (ParseException e) {
             throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
@@ -147,12 +147,12 @@ public class IntervieweeBuilder extends PersonBuilder {
      */
     @Override
     public IntervieweeBuilder withTags(String... tags) {
-       try {
-           super.getTags().clear();
-           super.getTags().addAll(ParserUtil.parseTags(Arrays.asList(tags)));
-       } catch (ParseException e) {
-           throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
-       }
+        try {
+            super.getTags().clear();
+            super.getTags().addAll(ParserUtil.parseTags(Arrays.asList(tags)));
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR, e);
+        }
         return this;
     }
 

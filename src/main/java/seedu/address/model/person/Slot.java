@@ -60,6 +60,22 @@ public class Slot {
     }
 
     /**
+     * Factory method for constructing a {@code Slot} from a given String in the enforced format.
+     *
+     * @param slot The String in the format given in SEPARATION_REGEX.
+     */
+    public static Slot fromString(String slot) throws IllegalArgumentException {
+        requireNonNull(slot);
+        checkArgument(isValidSlot(slot), MESSAGE_CONSTRAINTS);
+        final Matcher matcher = SEPARATION_REGEX.matcher(slot);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
+
+        return new Slot(matcher.group("date"), matcher.group("slot1"), matcher.group("slot2"));
+    }
+
+    /**
      * Returns true if the given slot timing is in valid format and start occurs earlier than end.
      */
     public static boolean isValidSlot(String test) {

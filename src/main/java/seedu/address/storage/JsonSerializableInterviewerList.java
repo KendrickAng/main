@@ -32,7 +32,7 @@ public class JsonSerializableInterviewerList {
     }
 
     /**
-     * Converts a given {@code ReadOnlyInterviewerList} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyList<Interviewer>} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableInterviewerList}.
      */

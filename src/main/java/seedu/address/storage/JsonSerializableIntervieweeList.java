@@ -32,7 +32,7 @@ public class JsonSerializableIntervieweeList {
     }
 
     /**
-     * Converts a given {@code ReadOnlyIntervieweeList} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyList<Interviewee>} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableIntervieweeList}.
      */

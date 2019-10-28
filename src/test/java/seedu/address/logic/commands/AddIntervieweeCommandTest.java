@@ -285,6 +285,7 @@ class AddIntervieweeCommandTest {
         public boolean hasInterviewer(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void addInterviewerToSchedule(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");

@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertModelHasIntervi
 import static seedu.address.logic.commands.CommandTestUtil.showIntervieweeWithName;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.BENSON_INTERVIEWEE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerBook;
 
@@ -17,15 +16,14 @@ import java.util.LinkedList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.model.IntervieweeBook;
-import seedu.address.model.InterviewerBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
 import seedu.address.testutil.TypicalPersons;
 
@@ -37,56 +35,54 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIntervieweeUnfilteredList_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
-                getTypicalIntervieweeBook(), new InterviewerBook());
+        Model model = new ModelManager(getTypicalIntervieweeBook(), new InterviewerList(),
+                new UserPrefs(), new LinkedList<>());
+
         Interviewee alice = TypicalPersons.ALICE_INTERVIEWEE;
         Role role = new Role("interviewee");
 
         Interviewee intervieweeToDel = model.getInterviewee(alice.getName().fullName);
-        Person personToDel = model.getPerson(alice.getName().fullName);
 
         DeleteCommand deleteCommand = new DeleteCommand(alice.getName(), role);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, intervieweeToDel);
 
         // create duplicate and remove interviewee
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>(),
-                model.getIntervieweeBook(), model.getInterviewerBook());
+        ModelManager expectedModel = new ModelManager(model.getMutableIntervieweeList(),
+                model.getMutableInterviewerList(), new UserPrefs(), new LinkedList<>());
 
         expectedModel.deleteInterviewee(intervieweeToDel);
-        expectedModel.deletePerson(personToDel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_validInterviewerUnfilteredList_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
-                new IntervieweeBook(), getTypicalInterviewerBook());
+        Model model = new ModelManager(new IntervieweeList(), getTypicalInterviewerBook(),
+                new UserPrefs(), new LinkedList<>());
+
         Interviewer benson = TypicalPersons.BENSON_INTERVIEWER;
         Role role = new Role("interviewer");
 
         Interviewer interviewerToDel = model.getInterviewer(benson.getName().fullName);
-        Person personToDel = model.getPerson(benson.getName().fullName);
 
         DeleteCommand deleteCommand = new DeleteCommand(benson.getName(), role);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, interviewerToDel);
 
         // create duplicate and remove interviewee
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>(),
-                model.getIntervieweeBook(), model.getInterviewerBook());
+        ModelManager expectedModel = new ModelManager(model.getMutableIntervieweeList(),
+                model.getMutableInterviewerList(), new UserPrefs(), new LinkedList<>());
 
         expectedModel.deleteInterviewer(interviewerToDel);
-        expectedModel.deletePerson(personToDel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidNameUnfilteredList_throwsCommandException() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
-                getTypicalIntervieweeBook(), new InterviewerBook());
+        Model model = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+                new UserPrefs(), new LinkedList<>());
 
         DeleteCommand deleteCommand = new DeleteCommand(new Name("This name doesnt exist in IntervieweeBook"),
                 new Role("interviewee"));
@@ -98,10 +94,9 @@ public class DeleteCommandTest {
     public void execute_validNameFilteredList_success() {
         // showPersonAtIndex(model, INDEX_FIRST_PERSON);
         // pre-processing
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
-                getTypicalIntervieweeBook(), new InterviewerBook());
+        Model model = new ModelManager(getTypicalIntervieweeBook(), new InterviewerList(),
+                new UserPrefs(), new LinkedList<>());
         Interviewee toDelete = ALICE_INTERVIEWEE;
-        Person personToDelete = model.getPerson(ALICE_INTERVIEWEE.getName().fullName);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, toDelete);
 
@@ -111,10 +106,9 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(toDelete.getName(), new Role("interviewee"));
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new LinkedList<>(),
-                model.getIntervieweeBook(), model.getInterviewerBook());
+        Model expectedModel = new ModelManager(model.getMutableIntervieweeList(), model.getMutableInterviewerList(),
+                new UserPrefs(), new LinkedList<>());
         expectedModel.deleteInterviewee(toDelete);
-        expectedModel.deletePerson(personToDelete);
 
         showNoInterviewee(expectedModel);
 
@@ -123,8 +117,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidNameFilteredList_throwsCommandException() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
-                getTypicalIntervieweeBook(), new InterviewerBook());
+        Model model = new ModelManager(getTypicalIntervieweeBook(), new InterviewerList(),
+                new UserPrefs(), new LinkedList<>());
 
         showIntervieweeWithName(model, ALICE_INTERVIEWEE.getName());
 

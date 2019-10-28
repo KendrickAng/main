@@ -19,7 +19,7 @@ public interface IntervieweeListStorage {
     Path getIntervieweeListFilePath();
 
     /**
-     * Returns Interviewees data as an {@link ReadOnlyList<Interviewee>}
+     * Returns Interviewees data as an {@link ReadOnlyList}
      * Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -32,7 +32,7 @@ public interface IntervieweeListStorage {
     Optional<ReadOnlyList<Interviewee>> readIntervieweeList(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyList<Interviewee>} to the storage.
+     * Saves the given {@link ReadOnlyList} to the storage.
      * @param intervieweeList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Interviewer;
 
+/**
+ * Adds an Interviewer to the {@code InterviewerList}.
+ */
 public class AddInterviewerCommand extends AddCommand {
 
     private final Interviewer toAdd;

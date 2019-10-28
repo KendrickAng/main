@@ -15,6 +15,7 @@ import seedu.address.model.person.Interviewer;
  * Contains utility methods for populating {@code IntervieweeList} and {@code IntervieweeList} with sample data.
  */
 public class SampleDataUtil {
+
     private static String[][] sampleFilledTable =
             new String[][]{
                     {"10/9/2019", "Welfare - Hazel", "Technical - Johnathan", "Publicity - Lucia"},

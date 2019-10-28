@@ -4,6 +4,9 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.person.Person;
 
+/**
+ * Represents a List of Interviewees/Interviewers that can only be read.
+ */
 public interface ReadOnlyList<T extends Person> {
 
     /**
