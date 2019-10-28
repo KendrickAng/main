@@ -4,13 +4,15 @@ import java.nio.file.Path;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.Schedule;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 
 /**
  * API of the Logic component
@@ -25,20 +27,62 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
+    /* TODO: REMOVE THE FOLLOWING LINES AFTER THEIR USAGE IS REMOVED */
     Path getAddressBookFilePath();
+
+    /* TODO: REMOVE ABOVE LINES */
+
+    // ==================================IntervieweeList and InterviewerList ======================================
+
+    /**
+     * Returns the uniterable, unmodifiable, unfiltered list of interviewees.
+     */
+    ReadOnlyList<Interviewee> getIntervieweeList();
+
+    /**
+     * Returns the uniterable, unmodifiable, unfiltered list of Interviewers.
+     */
+    ReadOnlyList<Interviewer> getInterviewerList();
+
+    /**
+     * Returns an iterable, unmodifiable view of the unfiltered list of all Interviewees.
+     *
+     * @see seedu.address.model.Model#getUnfilteredIntervieweeList()
+     */
+    ObservableList<Interviewee> getUnfilteredIntervieweeList();
+
+    /**
+     * Returns an iterable, unmodifiable view of the unfiltered list of all Interviewers.
+     *
+     * @see seedu.address.model.Model#getUnfilteredInterviewerList()
+     */
+    ObservableList<Interviewer> getUnfilteredInterviewerList();
+
+    /**
+     * Returns an iterable, unmodifiable view of the filtered list of Interviewees.
+     *
+     * @see seedu.address.model.Model#getMutableIntervieweeList()
+     */
+    ObservableList<Interviewee> getFilteredIntervieweeList();
+
+    /**
+     * Returns an iterable, unmodifiable view of the filtered list of Interviewers.
+     *
+     * @see seedu.address.model.Model#getMutableInterviewerList()
+     */
+    ObservableList<Interviewer> getFilteredInterviewerList();
+
+    /**
+     * Returns the user prefs' file path to the list of Interviewees.
+     */
+    Path getIntervieweeListFilePath();
+
+    /**
+     * Returns the user prefs' file path to the list of Interviewers.
+     */
+    Path getInterviewerListFilePath();
+
+    // ============================================ Schedule ===================================================
 
     /**
      * Returns the list of Schedules.

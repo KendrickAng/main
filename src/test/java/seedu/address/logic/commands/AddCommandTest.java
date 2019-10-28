@@ -21,8 +21,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.ListBasedBook;
 import seedu.address.model.Model;
+import seedu.address.model.ReadAndWriteList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
@@ -88,10 +88,6 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public ListBasedBook<Interviewee> getIntervieweeBook() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public ObservableList<Interviewee> getFilteredIntervieweeList() {
@@ -121,11 +117,6 @@ public class AddCommandTest {
         @Override
         public Interviewer getInterviewer(String name) throws NoSuchElementException {
             return null;
-        }
-
-        @Override
-        public ListBasedBook<Interviewer> getInterviewerBook() {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -215,6 +206,16 @@ public class AddCommandTest {
 
         @Override
         public void addInterviewee(Interviewee interviewee) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadAndWriteList<Interviewee> getIntervieweeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadAndWriteList<Interviewer> getInterviewerList() {
             throw new AssertionError("This method should not be called.");
         }
 

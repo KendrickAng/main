@@ -1,5 +1,5 @@
 package seedu.address.model;
 
 // TODO: implementation
-class IntervieweeBookTest {
+class IntervieweeListTest {
 }

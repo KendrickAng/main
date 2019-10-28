@@ -3,21 +3,13 @@ package seedu.address.model.util;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.Schedule;
-import seedu.address.model.person.Department;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Slot;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -33,29 +25,34 @@ public class SampleDataUtil {
                     {"20:00-20:30", "Selina", "0", "0"},
                     {"20:30-21:00", "Natal", "0", "0"}};
 
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"),
-                    getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"),
-                    getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
-                    getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"),
-                    getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"),
-                    getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"),
-                    getTagSet("colleagues"))
-        };
+    public static Interviewee[] getSampleInterviewees() {
+        // TODO: Expand this sample Interviewees list
+        return new Interviewee[0];
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    public static Interviewer[] getSampleInterviewers() {
+        // TODO: Expand this sample Interviewers list
+        return new Interviewer[0];
+    }
+
+    public static ReadOnlyList<Interviewee> getSampleIntervieweeList() {
+        IntervieweeList sampleIntervieweeList = new IntervieweeList();
+
+        for (Interviewee sampleInterviewee : getSampleInterviewees()) {
+            sampleIntervieweeList.addEntity(sampleInterviewee);
         }
-        return sampleAb;
+
+        return sampleIntervieweeList;
+    }
+
+    public static ReadOnlyList<Interviewer> getSampleInterviewerList() {
+        InterviewerList sampleInterviewerList = new InterviewerList();
+
+        for (Interviewer sampleInterviewer : getSampleInterviewers()) {
+            sampleInterviewerList.addEntity(sampleInterviewer);
+        }
+
+        return sampleInterviewerList;
     }
 
     public static List<Schedule> getSampleSchedulesList() {
@@ -77,39 +74,6 @@ public class SampleDataUtil {
             tableCopy.add(rowCopy);
         }
         return tableCopy;
-    }
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
-    }
-    /**
-     * Returns a department list containing the list of strings given.
-     */
-    public static List<Department> getDepartmentList(String... strings) {
-        return Arrays.stream(strings)
-                .map(SampleDataUtil::parseDepartment)
-                .collect(Collectors.toList());
-    }
-
-    private static Department parseDepartment(String s) {
-        try {
-            return ParserUtil.parseDepartment(s);
-        } catch (ParseException e) {
-            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
-        }
-    }
-
-    /**
-     * Returns a time slot list containing the list of strings given.
-     */
-    public static List<Slot> getTimeslotList(String...timeslots) {
-        return Arrays.stream(timeslots)
-                .map(Slot::new)
-                .collect(Collectors.toList());
     }
 }
 

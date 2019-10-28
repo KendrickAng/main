@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -20,41 +19,74 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Interviewee> PREDICATE_SHOW_ALL_INTERVIEWEES = unused -> true;
+    Predicate<Interviewer> PREDICATE_SHOW_ALL_INTERVIEWERS = unused -> true;
 
-    // IntervieweeList and InterviewerList (Ken)
-    // ========================================================================================
-
+    // ==================================IntervieweeList and InterviewerList ======================================
 
     /**
-     * Adds an interviewer to the model's {@code InterviewerList}. Must be unique.
+     * Replaces the list of IntervieweeList data with the data in {@code interviewees}
      */
-    void addInterviewer(Interviewer interviewer);
+    void setIntervieweeList(List<Interviewee> interviewees);
 
     /**
-     * Adds an interviewee to the model's {@code IntervieweeList}. Must be unique.
+     * Replaces the list of Interviewers data with the data in {@code interviewers}
      */
-    void addInterviewee(Interviewee interviewee);
+    void setInterviewerList(List<Interviewer> interviewers);
 
     /**
-     * Returns the interviewee book.
+     * Sets the user prefs' interviewee list file path.
      */
-    ReadAndWriteList<Interviewee> getIntervieweeList();
+    void setIntervieweeListFilePath(Path intervieweeListFilePath);
 
     /**
-     * Returns the interviewer book.
+     * Sets the user pref's interviewer list file path.
      */
-    ReadAndWriteList<Interviewer> getInterviewerList();
+    void setInterviewerListFilePath(Path interviewerListFilePath);
 
     /**
-     * Returns an unmodifiable list view of {@code Interviewee} backed by the internal list of {@code IntervieweeList}.
+     * Returns the user pref's interviewee list file path.
+     */
+    Path getIntervieweeListFilePath();
+
+    /**
+     * Returns the user pref's interviewer list file path.
+     */
+    Path getInterviewerListFilePath();
+
+    /**
+     * Returns the modifiable internal list of {@code Interviewee}.
+     */
+    ReadAndWriteList<Interviewee> getMutableIntervieweeList();
+
+    /**
+     * Returns the modifiable internal list of {@code Interviewer}.
+     */
+    ReadAndWriteList<Interviewer> getMutableInterviewerList();
+
+    /**
+     * Returns an unmodifiable list view of {@code Interviewee} backed by the internal {@code IntervieweeList}.
+     *
+     * @see Model#updateFilteredIntervieweeList(Predicate)
      */
     ObservableList<Interviewee> getFilteredIntervieweeList();
 
     /**
-     * Returns an unmodifiable list view of {@code Interviewer} backed by the internal list of {@code InterviewerList}.
+     * Returns an unmodifiable list view of {@code Interviewer} backed by the internal {@code InterviewerList}.
+     *
+     * @see Model#updateFilteredInterviewerList(Predicate)
      */
     ObservableList<Interviewer> getFilteredInterviewerList();
+
+    /**
+     * Returns an unmodifiable list view of all {@code Interviewee}s backed by the internal {@code IntervieweeList}.
+     */
+    ObservableList<Interviewee> getUnfilteredIntervieweeList();
+
+    /**
+     * Returns an unmodifiable list view of all {@code Interviewer}s backed by the internal {@code InterviewerList}.
+     */
+    ObservableList<Interviewer> getUnfilteredInterviewerList();
 
     /**
      * Restricts the {@code ObservableList} of interviewee to display only what returns true on Predicate while
@@ -69,6 +101,26 @@ public interface Model {
     void updateFilteredInterviewerList(Predicate<Interviewer> predicate);
 
     /**
+     * Adds an interviewer to the model's {@code InterviewerList}. Must be unique.
+     */
+    void addInterviewer(Interviewer interviewer);
+
+    /**
+     * Adds an interviewee to the model's {@code IntervieweeList}. Must be unique.
+     */
+    void addInterviewee(Interviewee interviewee);
+
+    /**
+     * Returns true if an interviewee with the same identity exists in the interviewee list.
+     */
+    boolean hasInterviewee(Interviewee interviewee);
+
+    /**
+     * Returns true if an interviewer with the same identity exists in the interviewer list.
+     */
+    boolean hasInterviewer(Interviewer interviewer);
+
+    /**
      * Returns an Interviewee given a name. The Interviewee must exist in the database, or an exception is thrown.
      */
     Interviewee getInterviewee(String name) throws NoSuchElementException;
@@ -79,16 +131,67 @@ public interface Model {
     Interviewer getInterviewer(String name) throws NoSuchElementException;
 
     /**
-     * Deletes the given interviewee from the {@code IntervieweeList}. The interviewee must exist in the interviewee book.
+     * Deletes the interviewee from the {@code IntervieweeList}. An exception is thrown if {@code target} is not found.
      */
     void deleteInterviewee(Interviewee target) throws PersonNotFoundException;
 
     /**
-     * Deletes the given interviewer from the {@code InterviewerList}. The interviewer must exist in the book.
+     * Deletes the interviewer from the {@code InterviewerList}. An exception is thrown if {@code target} is not found.
      */
     void deleteInterviewer(Interviewer target) throws PersonNotFoundException;
 
-    // ==================================================================================================
+    /**
+     * Edits the interviewee with the {@code editedTarget}. An exception is thrown if {@code target} is not found.
+     */
+    void setInterviewee(Interviewee target, Interviewee editedTarget) throws PersonNotFoundException;
+
+    /**
+     * Edits the interviewer with the {@code editedTarget}. An exception is thrown if {@code target} is not found.
+     */
+    void setInterviewer(Interviewer target, Interviewer editedTarget) throws PersonNotFoundException;
+
+    // =========================================== Mass Email =================================================
+
+    /**
+     * Emails the given Interviewee.
+     * The Interviewee must exist in the database.
+     */
+    void emailInterviewee(Interviewee interviewee) throws IOException;
+
+    // ============================================ Schedule ===================================================
+
+    /**
+     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
+     * and returns true. Otherwise, the method will not addEntity the interviewer and return false.
+     */
+    void addInterviewerToSchedule(Interviewer interviewer);
+    /**
+     * Returns the date of the schedule in which the interviewer exists in, otherwise return empty string.
+     */
+    String scheduleHasInterviewer(Interviewer interviewer);
+
+    /**
+     * Replaces schedule data with the data in {@code schedule}.
+     */
+    void setSchedulesList(List<Schedule> schedulesList);
+
+    /**
+     * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.
+     */
+    List<Slot> getInterviewSlots(String intervieweeName);
+
+    /**
+     * Returns a list of observable list of the schedules.
+     */
+    List<ObservableList<ObservableList<String>>> getObservableLists();
+
+    /** Returns the schedulesList **/
+    List<Schedule> getSchedulesList();
+
+    /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
+    List<List<String>> getTitlesLists();
+
+    // ============================================ User Prefs ===================================================
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -109,109 +212,4 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-
-    /**
-     * Replaces schedule data with the data in {@code schedule}.
-     */
-    void setSchedulesList(List<Schedule> schedulesList);
-
-    /**
-     * Sets interviewee's data.
-     */
-    void setIntervieweesList(List<Interviewee> list);
-
-    /** Returns the schedulesList **/
-    List<Schedule> getSchedulesList();
-
-    /**
-     * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
-     * and returns true. Otherwise, the method will not addEntity the interviewer and return false.
-     */
-    void addInterviewerToSchedule(Interviewer interviewer);
-
-    /** Returns the intervieweesList **/
-    List<Interviewee> getIntervieweesList();
-
-    /**
-     * Returns a list of observable list of the schedules.
-     */
-    List<ObservableList<ObservableList<String>>> getObservableLists();
-
-    /** Returns a list of lists of column titles, each list of column titles belong to a Schedule table*/
-    List<List<String>> getTitlesLists();
-
-    /**
-     * Emails the given Interviewee.
-     * The Interviewee must exist in the database.
-     */
-    void emailInterviewee(Interviewee interviewee) throws IOException;
-
-    /**
-     * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.
-     */
-    List<Slot> getInterviewSlots(String intervieweeName);
-
-    /**
-     * Returns the date of the schedule in which the interviewer exists in, otherwise return empty string.
-     */
-    String hasInterviewer(Interviewer interviewer);
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target) throws PersonNotFoundException;
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Returns the Person object given the name.
-     * The person must exist in the address book.
-     * @param name The name of the Person
-     * @throws NoSuchElementException If the person does not exist in the address book.
-     */
-    Person getPerson(String name) throws NoSuchElementException;
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 }
