@@ -77,4 +77,3 @@ public class SampleDataUtil {
         return tableCopy;
     }
 }
-
