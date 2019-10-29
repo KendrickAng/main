@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertModelHasIntervi
 import static seedu.address.logic.commands.CommandTestUtil.showIntervieweeWithName;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.BENSON_INTERVIEWEE;
-import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeList;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerList;
 
 import java.util.LinkedList;
 
@@ -35,7 +35,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIntervieweeUnfilteredList_success() {
-        Model model = new ModelManager(getTypicalIntervieweeBook(), new InterviewerList(),
+        Model model = new ModelManager(getTypicalIntervieweeList(), new InterviewerList(),
                 new UserPrefs(), new LinkedList<>());
 
         Interviewee alice = TypicalPersons.ALICE_INTERVIEWEE;
@@ -58,7 +58,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validInterviewerUnfilteredList_success() {
-        Model model = new ModelManager(new IntervieweeList(), getTypicalInterviewerBook(),
+        Model model = new ModelManager(new IntervieweeList(), getTypicalInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
 
         Interviewer benson = TypicalPersons.BENSON_INTERVIEWER;
@@ -81,7 +81,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidNameUnfilteredList_throwsCommandException() {
-        Model model = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+        Model model = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
 
         DeleteCommand deleteCommand = new DeleteCommand(new Name("This name doesnt exist in IntervieweeBook"),
@@ -94,7 +94,7 @@ public class DeleteCommandTest {
     public void execute_validNameFilteredList_success() {
         // showPersonAtIndex(model, INDEX_FIRST_PERSON);
         // pre-processing
-        Model model = new ModelManager(getTypicalIntervieweeBook(), new InterviewerList(),
+        Model model = new ModelManager(getTypicalIntervieweeList(), new InterviewerList(),
                 new UserPrefs(), new LinkedList<>());
         Interviewee toDelete = ALICE_INTERVIEWEE;
 
@@ -117,7 +117,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidNameFilteredList_throwsCommandException() {
-        Model model = new ModelManager(getTypicalIntervieweeBook(), new InterviewerList(),
+        Model model = new ModelManager(getTypicalIntervieweeList(), new InterviewerList(),
                 new UserPrefs(), new LinkedList<>());
 
         showIntervieweeWithName(model, ALICE_INTERVIEWEE.getName());

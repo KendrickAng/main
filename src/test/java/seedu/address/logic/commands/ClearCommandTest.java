@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeList;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,9 +25,9 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+        Model model = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
-        Model expectedModel = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+        Model expectedModel = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
         expectedModel.setIntervieweeList(List.of());
         expectedModel.setInterviewerList(List.of());

@@ -95,10 +95,6 @@ public class TypicalPersons {
     public static final Interviewer GEORGE_INTERVIEWER = new InterviewerBuilder(GEORGE).withDepartment("Logistics")
             .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
 
-    // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").build();
-
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY_PERSON = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withTags(VALID_TAG_FRIEND).build();
@@ -113,19 +109,13 @@ public class TypicalPersons {
             .withTimeslots(VALID_SLOT_BOB).withPersonalEmail(VALID_PERSONAL_EMAIL_BOB)
             .withNusWorkEmail(VALID_NUS_WORK_EMAIL_BOB).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
     private TypicalPersons() {} // prevents instantiation
-
-    public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
 
     /**
      * Returns an {@code IntervieweeList} with all the typical interviewees.
      * @return
      */
-    public static IntervieweeList getTypicalIntervieweeBook() {
+    public static IntervieweeList getTypicalIntervieweeList() {
         IntervieweeList ib = new IntervieweeList();
         for (Interviewee i: getTypicalInterviewees()) {
             ib.addEntity(i);
@@ -138,7 +128,7 @@ public class TypicalPersons {
                 DANIEL_INTERVIEWEE, ELLE_INTERVIEWEE, FIONA_INTERVIEWEE, GEORGE_INTERVIEWEE));
     }
 
-    public static InterviewerList getTypicalInterviewerBook() {
+    public static InterviewerList getTypicalInterviewerList() {
         InterviewerList ib = new InterviewerList();
         for (Interviewer i: getTypicalInterviewers()) {
             ib.addEntity(i);

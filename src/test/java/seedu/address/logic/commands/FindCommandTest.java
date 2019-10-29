@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeList;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerList;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,9 +20,9 @@ import seedu.address.model.person.PersonNameHasKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+    private Model model = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
             new UserPrefs(), new LinkedList<>());
-    private Model expectedModel = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+    private Model expectedModel = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
             new UserPrefs(), new LinkedList<>());
 
     @Test

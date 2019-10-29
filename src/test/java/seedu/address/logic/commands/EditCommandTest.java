@@ -18,7 +18,7 @@ public class EditCommandTest {
 
     /*
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new LinkedList<>(),
-            getTypicalIntervieweeBook(), new InterviewerBook());
+            getTypicalIntervieweeList(), new InterviewerBook());
     */
 
     // TODO: FIX THIS TRAIN WRECK (ken)

@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showIntervieweeWithName;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
-import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeList;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerList;
 
 import java.util.LinkedList;
 
@@ -25,7 +25,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+        model = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
         expectedModel = new ModelManager(model.getMutableIntervieweeList(), model.getMutableInterviewerList(),
                 new UserPrefs(), new LinkedList<>());

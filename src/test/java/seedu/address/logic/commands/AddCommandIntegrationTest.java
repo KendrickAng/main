@@ -4,8 +4,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWER;
-import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeList;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerList;
 
 import java.util.LinkedList;
 
@@ -58,7 +58,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateInterviewee_throwsCommandException() {
-        model = new ModelManager(getTypicalIntervieweeBook(), getTypicalInterviewerBook(),
+        model = new ModelManager(getTypicalIntervieweeList(), getTypicalInterviewerList(),
                 new UserPrefs(), new LinkedList<>());
 
         Interviewee intervieweeInList = model.getInterviewee(ALICE_INTERVIEWEE.getName().fullName);
