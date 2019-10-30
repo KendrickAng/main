@@ -56,7 +56,8 @@ public class SampleInterviewers {
                 .email(email)
                 .department(department)
                 .build();
-        alicePauline.setAvailabilities(Arrays.stream(availabilities).map(Slot::fromString).collect(Collectors.toList()));
+        alicePauline.setAvailabilities(
+                Arrays.stream(availabilities).map(Slot::fromString).collect(Collectors.toList()));
         return alicePauline;
     }
 
