@@ -46,7 +46,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyList<Interviewee> intervieweeList, ReadOnlyList<Interviewer> interviewerList,
                         ReadOnlyUserPrefs userPrefs, List<Schedule> schedulesList) {
         super();
-        requireAllNonNull(intervieweeList, userPrefs, schedulesList);
+        requireAllNonNull(intervieweeList, interviewerList, userPrefs, schedulesList);
 
         logger.fine("Initialising with list of interviewees: " + intervieweeList
                 + ", list of interviewers: " + interviewerList
