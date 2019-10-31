@@ -34,16 +34,6 @@ import seedu.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    public static final Interviewee ANSON = new IntervieweeBuilder(new PersonBuilder().withName("Anson Pauline")
-            .withPhone("94351253").withTags("friends").build())
-            .withFaculty("School of computing")
-            .withYearOfStudy("2019")
-            .withDepartmentChoices("Marketing")
-            .withTimeslots("16/10/2019 00:00-23:59")
-            .withPersonalEmail("anson@gmail.com")
-            .withNusWorkEmail("anson@u.nus.edu")
-            .build();
-
     // Persons
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withPhone("94351253").withTags("friends").build();

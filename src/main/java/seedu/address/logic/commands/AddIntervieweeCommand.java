@@ -14,6 +14,7 @@ public class AddIntervieweeCommand extends AddCommand {
     private final Interviewee toAdd;
 
     public AddIntervieweeCommand(Interviewee toAdd) {
+        requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
 

@@ -163,8 +163,8 @@ public class CommandTestUtil {
         assertEquals(expectedIntervieweeList, ((ModelManager) actualModel).getIntervieweeList());
         assertEquals(expectedInterviewerList, ((ModelManager) actualModel).getInterviewerList());
 
-        assertEquals(expectedFilteredIntervieweeList, actualModel.getMutableIntervieweeList());
-        assertEquals(expectedFilteredInterviewerList, actualModel.getMutableInterviewerList());
+        assertEquals(expectedFilteredIntervieweeList, actualModel.getFilteredIntervieweeList());
+        assertEquals(expectedFilteredInterviewerList, actualModel.getFilteredInterviewerList());
     }
 
     // ===================================================================================================

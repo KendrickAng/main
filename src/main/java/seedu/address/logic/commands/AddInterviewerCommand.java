@@ -14,6 +14,7 @@ public class AddInterviewerCommand extends AddCommand {
     private final Interviewer toAdd;
 
     public AddInterviewerCommand(Interviewer toAdd) {
+        requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
 

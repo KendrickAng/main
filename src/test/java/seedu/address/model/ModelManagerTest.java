@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ANSON;
+import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
+import static seedu.address.testutil.TypicalPersons.BENSON_INTERVIEWER;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -127,8 +128,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        IntervieweeList intervieweeList = new IntervieweeListBuilder().withInterviewee(ANSON).build();
-        InterviewerList interviewerList = new InterviewerListBuilder().withInterviewer(null).build();
+        IntervieweeList intervieweeList = new IntervieweeListBuilder().withInterviewee(ALICE_INTERVIEWEE).build();
+        InterviewerList interviewerList = new InterviewerListBuilder().withInterviewer(BENSON_INTERVIEWER).build();
 
         IntervieweeList differentIntervieweeList = new IntervieweeList();
         InterviewerList differentInterviewerList = new InterviewerList();
