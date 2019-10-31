@@ -54,7 +54,7 @@ public class EditIntervieweeCommand extends EditCommand {
         Interviewee intervieweeToEdit = model.getInterviewee(toEdit.fullName);
 
         // ensure user only edits what is shown on UI (i.e the filtered list)
-        if (!model.getFilteredIntervieweeList().contains(intervieweeToEdit)) {
+        if (!lastShownList.contains(intervieweeToEdit)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_NAME);
         }
 
@@ -68,7 +68,7 @@ public class EditIntervieweeCommand extends EditCommand {
         model.setInterviewee(intervieweeToEdit, editedInterviewee);
         model.updateFilteredIntervieweeList(PREDICATE_SHOW_ALL_INTERVIEWEES);
 
-        return new CommandResult(MESSAGE_EDIT_PERSON_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedInterviewee));
     }
 
     private Interviewee createEditedInterviewee(Interviewee interviewee, EditIntervieweeDescriptor descriptor) {

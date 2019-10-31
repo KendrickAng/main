@@ -1,9 +1,12 @@
 package seedu.address.model.person;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.model.Schedule;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class containing all default values for the model.
@@ -13,6 +16,7 @@ public class DefaultValues {
     // Person
     public static final Name DEFAULT_NAME = new Name("John Cena");
     public static final Phone DEFAULT_PHONE = new Phone("88888888");
+    public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     // Interviewee
     public static final Role DEFAULT_INTERVIEWEE_ROLE = new Role("interviewee");
