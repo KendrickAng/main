@@ -59,21 +59,21 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + interviewee.getName().fullName + " ");
         sb.append(PREFIX_PHONE + interviewee.getPhone().value + " ");
         interviewee.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         sb.append(PREFIX_FACULTY + interviewee.getFaculty().faculty + " ");
         sb.append(PREFIX_YEAR_OF_STUDY + interviewee.getYearOfStudy().toString() + " ");
         interviewee.getEmails().getEmailsOfType(PERSONAL).stream().forEach(
-                s -> sb.append(PREFIX_PERSONAL_EMAIL + s.value + " ")
+            s -> sb.append(PREFIX_PERSONAL_EMAIL + s.value + " ")
         );
         interviewee.getEmails().getEmailsOfType(EmailType.NUS).stream().forEach(
-                s -> sb.append(PREFIX_NUS_WORK_EMAIL + s.value + " ")
+            s -> sb.append(PREFIX_NUS_WORK_EMAIL + s.value + " ")
         );
         interviewee.getDepartmentChoices().stream().forEach(
-                s -> sb.append(PREFIX_DEPARTMENT + s.department + " ")
+            s -> sb.append(PREFIX_DEPARTMENT + s.department + " ")
         );
         interviewee.getAvailableTimeslots().stream().forEach(
-                s -> sb.append(PREFIX_SLOT + s.toString() + " ")
+            s -> sb.append(PREFIX_SLOT + s.toString() + " ")
         );
         return sb.toString();
     }

@@ -124,11 +124,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasInterviewer(Interviewer interviewer) {
-        return interviewerList.hasEntity(interviewer);
-    }
-
-    @Override
     public boolean hasInterviewee(Name name) {
         try {
             intervieweeList.getEntity(name);
@@ -136,6 +131,11 @@ public class ModelManager implements Model {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean hasInterviewer(Interviewer interviewer) {
+        return interviewerList.hasEntity(interviewer);
     }
 
     @Override

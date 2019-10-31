@@ -123,14 +123,14 @@ public interface Model {
     boolean hasInterviewee(Interviewee interviewee);
 
     /**
-     * Returns true if an interviewer with the same identity exists in the interviewer list.
-     */
-    boolean hasInterviewer(Interviewer interviewer);
-
-    /**
      * Returns true if an interviewee with the same Name exists in the interviewee list.
      */
     boolean hasInterviewee(Name name);
+
+    /**
+     * Returns true if an interviewer with the same identity exists in the interviewer list.
+     */
+    boolean hasInterviewer(Interviewer interviewer);
 
     /**
      * Returns true if an interviewer with the same Name exists in the interviewer list.

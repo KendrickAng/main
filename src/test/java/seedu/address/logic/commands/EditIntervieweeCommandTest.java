@@ -38,12 +38,12 @@ class EditIntervieweeCommandTest {
 
     @Test
     public void constructor_nullFieldsInput_failure() {
-        assertThrows(NullPointerException.class,
-                () -> new EditIntervieweeCommand(new Name("Alice"), null));
-        assertThrows(NullPointerException.class,
-                () -> new EditIntervieweeCommand(null, new EditIntervieweeCommand.EditIntervieweeDescriptor()));
-        assertThrows(NullPointerException.class,
-                () -> new EditIntervieweeCommand(null, null));
+        assertThrows(NullPointerException.class, () ->
+                new EditIntervieweeCommand(new Name("Alice"), null));
+        assertThrows(NullPointerException.class, () ->
+                new EditIntervieweeCommand(null, new EditIntervieweeCommand.EditIntervieweeDescriptor()));
+        assertThrows(NullPointerException.class, () ->
+                new EditIntervieweeCommand(null, null));
     }
 
     @Test
@@ -69,7 +69,8 @@ class EditIntervieweeCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different name -> returns false
-        assertFalse(standardCommand.equals(new EditIntervieweeCommand(BOB_INTERVIEWEE_MANUAL.getName(), aliceDescriptor)));
+        assertFalse(standardCommand.equals(
+                new EditIntervieweeCommand(BOB_INTERVIEWEE_MANUAL.getName(), aliceDescriptor)));
 
         // different descriptor -> returns false
         final EditIntervieweeDescriptor bobDescriptor = TestUtil.getDescriptorFromInterviewee(BOB_INTERVIEWEE_MANUAL);

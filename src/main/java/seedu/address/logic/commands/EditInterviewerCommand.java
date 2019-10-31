@@ -70,6 +70,9 @@ public class EditInterviewerCommand extends EditCommand {
         return new CommandResult(MESSAGE_EDIT_PERSON_SUCCESS);
     }
 
+    /**
+     * Generates the EditInterviewerDescriptor from the interviewer provided.
+     */
     private Interviewer createEditedInterviewer(Interviewer interviewer, EditInterviewerDescriptor descriptor) {
         assert interviewer != null;
 
@@ -95,6 +98,9 @@ public class EditInterviewerCommand extends EditCommand {
                 && editInterviewerDescriptor.equals(((EditInterviewerCommand) other).editInterviewerDescriptor));
     }
 
+    /**
+     * Represents the details to edit an Interviewer with.
+     */
     public static class EditInterviewerDescriptor {
         private Name name;
         private Phone phone;

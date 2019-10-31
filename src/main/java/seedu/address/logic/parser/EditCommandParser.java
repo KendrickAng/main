@@ -155,6 +155,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
+    /**
+     * Converts a collection of strings into a Optional List of Departments.
+     */
     private Optional<List<Department>> parseDepartmentsForEdit(Collection<String> departments) throws ParseException {
         assert departments != null;
 
@@ -166,6 +169,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseDepartments(departments));
     }
 
+    /**
+     * Converts a collection of strings into a Optional List of Slots.
+     */
     private Optional<List<Slot>> parseSlotsForEdit(Collection<String> slots) throws ParseException {
         assert slots != null;
 

@@ -71,6 +71,9 @@ public class EditIntervieweeCommand extends EditCommand {
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedInterviewee));
     }
 
+    /**
+     * Generates the EditIntervieweeDescriptor from the interviewee provided.
+     */
     private Interviewee createEditedInterviewee(Interviewee interviewee, EditIntervieweeDescriptor descriptor) {
         assert interviewee != null;
 
@@ -102,6 +105,9 @@ public class EditIntervieweeCommand extends EditCommand {
                 && editIntervieweeDescriptor.equals(((EditIntervieweeCommand) other).editIntervieweeDescriptor));
     }
 
+    /**
+     * Represents the details to edit an interviewee with.
+     */
     public static class EditIntervieweeDescriptor {
         private Name name;
         private Phone phone;

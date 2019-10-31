@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import seedu.address.logic.graph.IntervieweeVertex;
 import seedu.address.logic.commands.EditIntervieweeCommand.EditIntervieweeDescriptor;
 import seedu.address.logic.commands.EditInterviewerCommand.EditInterviewerDescriptor;
+import seedu.address.logic.graph.IntervieweeVertex;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 
