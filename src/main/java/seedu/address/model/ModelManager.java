@@ -22,6 +22,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -116,6 +117,26 @@ public class ModelManager implements Model {
     @Override
     public boolean hasInterviewer(Interviewer interviewer) {
         return interviewerList.hasEntity(interviewer);
+    }
+
+    @Override
+    public boolean hasInterviewee(Name name) {
+        try {
+            intervieweeList.getEntity(name);
+        } catch (PersonNotFoundException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean hasInterviewer(Name name) {
+        try {
+            interviewerList.getEntity(name);
+        } catch (PersonNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

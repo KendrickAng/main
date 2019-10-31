@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWER;
-import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE;
+import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE_MANUAL;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Slot;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -63,7 +64,7 @@ class AddInterviewerCommandTest {
     @Test
     public void equals() {
         Interviewee alice = ALICE_INTERVIEWEE;
-        Interviewee bob = BOB_INTERVIEWEE;
+        Interviewee bob = BOB_INTERVIEWEE_MANUAL;
 
         AddCommand addAliceCommand = new AddIntervieweeCommand(alice);
         AddCommand addBobCommand = new AddIntervieweeCommand(bob);
@@ -286,6 +287,17 @@ class AddInterviewerCommandTest {
         public boolean hasInterviewer(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasInterviewee(Name toFind) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasInterviewer(Name toFind) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addInterviewerToSchedule(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
