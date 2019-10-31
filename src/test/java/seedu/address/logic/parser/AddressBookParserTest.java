@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE_INTERVIEWEE;
-import static seedu.address.testutil.TypicalPersons.AMY_INTERVIEWEE_MANUAL;
 import static seedu.address.testutil.TypicalPersons.BOB_INTERVIEWEE_MANUAL;
 
 import java.util.Arrays;
@@ -66,12 +65,12 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        EditIntervieweeDescriptor descriptor = TestUtil.getDescriptorFromInterviewee(AMY_INTERVIEWEE_MANUAL);
+        EditIntervieweeDescriptor descriptor = TestUtil.getDescriptorFromInterviewee(ALICE_INTERVIEWEE);
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + ALICE_INTERVIEWEE.getName() + " " + PREFIX_ROLE + " interviewee" +
+                + ALICE_INTERVIEWEE.getName() + " " + PREFIX_ROLE + "interviewee" + " " +
                 PersonUtil.getEditIntervieweeDescriptorDetails(descriptor));
 
-        assertEquals(new EditIntervieweeCommand(AMY_INTERVIEWEE_MANUAL.getName(), descriptor), command);
+        assertEquals(new EditIntervieweeCommand(ALICE_INTERVIEWEE.getName(), descriptor), command);
     }
 
     @Test
