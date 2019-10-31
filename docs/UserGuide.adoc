@@ -122,7 +122,7 @@ Example:
 
  add r/interviewer n/Mary Jane p/99999999 ew/MaryJane@u.nus.edu d/Marketing s/20/09/2019 18:00-19:00
 
-=== Edit interviewees/interviewers `edit` `[Coming in v2.0]`
+=== Edit interviewees/interviewers
 Manually edit an entity in the database.
 
 Format: `edit NAME r/ROLE p/PHONE [t/TAG]... f/FACULTY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL y/YEAR_OF_STUDY [d/DEPARTMENT]... [s/SLOT]...`
@@ -136,18 +136,38 @@ Format: `edit NAME r/ROLE p/PHONE [t/TAG]... f/FACULTY ep/PERSONAL_EMAIL ew/NUS_
 ==== Edit an existing interviewee
 Manually edit an existing interviewee in the database.
 
-==== Edit an existing interviewer
+Format: edit `NAME` `r/interviewee` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERSONAL_EMAIL` `ew/NUS_WORK_EMAIL` `y/YEAR_OF_STUDY`
+`[d/DEPARTMENT]...` `[s/SLOT]...`
+
+* `NAME` and `r/interviewee` are compulsory arguments, and one other argument following `r/interviewee` must be present.
+
+==== Edit an existing interviewer (interview slot)
 Manually edit an existing interviewer in the database.
 
-=== Delete interviewer/interviewee `delete`
+Format: edit `NAME` `r/interviewer` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/NUS_WORK_EMAIL` `s/SLOT...`
 
-==== Delete existing interviewer (interview slot)
-Deletes the specified interviewer from the database +
-Format: `delete interviewer NAME` +
+=== Delete interviewees/interviewers `delete`
+Manually delete an entity from the database.
 
-==== Delete existing interviewee
-Deletes the specified interviewee from the database. +
-Format: `delete interviewee NAME`
+Format: `delete NAME r/ROLE`
+
+==== Delete an existing interviewee
+Deletes the specified interviewee from the database.
+
+Format: delete `NAME` `r/interviewee`
+
+Example:
+
+ delete John Doe r/interviewee
+
+==== Delete an existing interviewer (interview slot)
+Deletes the specified interviewer from the database
+
+Format: delete `NAME` `r/interviewee`
+
+Example:
+
+ delete Bohn Doe r/interviewer
 
 === UI Display
 
