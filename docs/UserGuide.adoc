@@ -123,14 +123,21 @@ Example:
  add r/interviewer n/Mary Jane p/99999999 ew/MaryJane@u.nus.edu d/Marketing s/20/09/2019 18:00-19:00
 
 === Edit interviewees/interviewers `edit` `[Coming in v2.0]`
+Manually edit an entity in the database.
 
-==== Changing availabilities of existing interviewer (interview slot)
-Change the specified interviewer from the database +
-Format: `edit interviewer NAME`
+Format: `edit NAME r/ROLE p/PHONE [t/TAG]... f/FACULTY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL y/YEAR_OF_STUDY [d/DEPARTMENT]... [s/SLOT]...`
 
-==== Changing availabilities of existing interviewee
-Change the specified interviewee from the database. +
-Format: `edit interviewee NAME`
+* `NAME` must be provided after `edit` and before the first prefix `r/ROLE`.
+* A `...` at the end of a field indicates that multiple arguments with those prefixes can be added, such as multiple slots.
+* The command format differs on the `r/ROLE` prefix supplied.
+** If `interviewee` is supplied, refer to "Edit an existing interviewee" below.
+** If `interviewer` is supplied, refer to "Edit an existing interviewer" below.
+
+==== Edit an existing interviewee
+Manually edit an existing interviewee in the database.
+
+==== Edit an existing interviewer
+Manually edit an existing interviewer in the database.
 
 === Delete interviewer/interviewee `delete`
 
