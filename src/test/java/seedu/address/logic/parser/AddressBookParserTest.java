@@ -66,7 +66,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         EditIntervieweeDescriptor descriptor = TestUtil.getDescriptorFromInterviewee(ALICE_INTERVIEWEE);
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditIntervieweeCommand command = (EditIntervieweeCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + ALICE_INTERVIEWEE.getName() + " " + PREFIX_ROLE + "interviewee" + " "
                 + PersonUtil.getEditIntervieweeDescriptorDetails(descriptor));
 
