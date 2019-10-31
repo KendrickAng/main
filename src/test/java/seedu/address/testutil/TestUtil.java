@@ -62,6 +62,9 @@ public class TestUtil {
         return e;
     }
 
+    /**
+     * Returns the interviewer descriptor with details from the Interviewer {@code i}.
+     */
     public static EditInterviewerDescriptor getDescriptorFromInterviewer(Interviewer i) {
         EditInterviewerDescriptor e = new EditInterviewerDescriptor();
         e.setName(i.getName());
@@ -72,6 +75,9 @@ public class TestUtil {
         return e;
     }
 
+    /**
+     * Returns a deep copy of the given {@code emails}.
+     */
     public static Emails deepCopyEmails(Emails emails) {
         HashMap<EmailType, List<Email>> map = emails.getAllEmails();
         HashMap<EmailType, List<Email>> deepCopy = new HashMap<>();
