@@ -524,6 +524,11 @@ public class ModelManager implements Model {
     // ===========================================================================================================
 
     @Override
+    public void clearAllAllocatedSlot() {
+        this.intervieweeList.clearAllAllocatedSlots();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -538,9 +543,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return userPrefs.equals(other.userPrefs)
-            && intervieweeList.equals(other.intervieweeList)
-            && interviewerList.equals(other.interviewerList)
-            && filteredInterviewees.equals(other.filteredInterviewees)
-            && filteredInterviewers.equals(other.filteredInterviewers);
+                && intervieweeList.equals(other.intervieweeList)
+                && interviewerList.equals(other.interviewerList)
+                && filteredInterviewees.equals(other.filteredInterviewees)
+                && filteredInterviewers.equals(other.filteredInterviewers);
     }
 }
