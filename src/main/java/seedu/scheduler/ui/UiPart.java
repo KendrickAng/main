@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.net.URL;
 
-import seedu.scheduler.MainApp;
-
 import javafx.fxml.FXMLLoader;
+
+import seedu.scheduler.MainApp;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.

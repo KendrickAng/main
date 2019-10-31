@@ -9,9 +9,10 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import seedu.scheduler.MainApp;
 
 import javafx.fxml.FXML;
+
+import seedu.scheduler.MainApp;
 
 public class UiPartTest {
 
