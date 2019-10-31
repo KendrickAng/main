@@ -19,6 +19,8 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddIntervieweeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditIntervieweeCommand;
 import seedu.address.logic.commands.EmailCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -30,6 +32,8 @@ import seedu.address.model.person.PersonNameHasKeywordsPredicate;
 import seedu.address.model.person.Role;
 import seedu.address.testutil.IntervieweeBuilder;
 import seedu.address.testutil.IntervieweeUtil;
+import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TestUtil;
 
 public class AddressBookParserTest {
 
@@ -60,7 +64,6 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        /*
         EditIntervieweeCommand.EditIntervieweeDescriptor descriptor =
                 TestUtil.getDescriptorFromInterviewee(ALICE_INTERVIEWEE);
         EditIntervieweeCommand command =
@@ -69,7 +72,6 @@ public class AddressBookParserTest {
                 + PersonUtil.getEditIntervieweeDescriptorDetails(descriptor));
 
         assertEquals(new EditIntervieweeCommand(ALICE_INTERVIEWEE.getName(), descriptor), command);
-        */
     }
 
     @Test
