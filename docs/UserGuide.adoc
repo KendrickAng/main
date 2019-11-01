@@ -116,7 +116,7 @@ Format: add `r/interviewee` `n/NAME` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERS
 
 Example:
 
- add r/interviewee n/John Doe p/88888888 t/CAP5 t/dog lover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-19:00
+ add r/interviewee n/John Doe p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-19:00
 
 * An interviewee can have multiple `s/SLOT`, `d/DEPARTMENT` and `t/TAG` arguments
 * Slots should be given in the format: `DD/MM/YYYY HH:MM-HH:MM`
