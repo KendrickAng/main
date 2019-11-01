@@ -161,6 +161,8 @@ Manually delete an entity from the database.
 
 Format: `delete NAME r/ROLE`
 
+* Scheduler guarantees there cannot be multiple interviewees or interviewers with the same name.
+
 ==== Delete an existing interviewee
 Deletes the specified interviewee from the database.
 
